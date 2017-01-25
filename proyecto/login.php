@@ -15,7 +15,7 @@ if ($connection->connect_error) {
 
 $username = $_POST['nombre'];
 $password = $_POST['password'];
-//mis campos en la base de datos son: user_login para el usuario y user_pass para la contraseña
+
 $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$username' AND password=md5('$password')";
 
 //echo $sql;
@@ -23,16 +23,12 @@ $sql = "SELECT * FROM usuarios WHERE nombre_usuario = '$username' AND password=m
 $result = $connection->query($sql);
 $obj=$result->fetch_object();
 
-
 if ($result->num_rows > 0) {
 
-
-
-    echo "HOLA<br>";
-//user_nicename es el campo en la base de datos que identifica el privilegio
     $_SESSION['loggedin'] = true;
     $_SESSION['username'] = $username;
-    $_SESSION['user_nicename'] = $obj;
+    $_SESSION['tipo'] = $obj -> tipo;
+    var_dump($sql);
     //$_SESSION['start'] = time();
 
     echo "Bienvenido " . $_SESSION['username'];

@@ -32,7 +32,6 @@
     <![endif]-->
 
 </head>
-
 <body>
 
     <!-- Navigation -->
@@ -49,20 +48,29 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="index.php">Inicio</a>
-                  </li>
-                  <li>
-                      <a href="about.html">Sobre nosotros</a>
-                  </li>
-                  <li>
-                      <a href="contact.html">Contacto</a>
-                  </li>
-                  <li>
-                      <a href="sesion.php">Iniciar sesión/Registrarse</a>
-                  </li>;
-              </ul>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="index.php">Inicio</a>
+                    </li>
+                    <li>
+                        <a href="about.html">Sobre nosotros</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">Contacto</a>
+                    </li>
+                    <li>
+                      <?php
+                      if (isset($_SESSION["username"])){
+                      echo '<a href="logout.php">Hola '.$_SESSION['username'].'. Pincha aquí para cerrar sesión.</a>';
+                      } else {
+                      echo '<a href="sesion.php">Iniciar sesión/Registrarse</a>';
+                      }
+                      ?>
+                  </li>    
+                </ul>
+              </div>
+             </div>
             </div>
         </div>
         <!-- /.container -->
@@ -70,7 +78,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/brexit.jpg')">
+    <header class="intro-header" style="background-image: url('img/images.png')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -150,7 +158,7 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
                             <a href="http://www.twitter.com/sergiogorge">
@@ -160,13 +168,19 @@
                                 </span>
                             </a>
                         </li>
+                        <li>
+                          <?php
+                          if (isset($_SESSION["tipo"])){
+                          echo '<a href="index.php">Añadir noticia.</a>';
+                          } else {
+                          }
+                          ?>
+                        </li>
                     </ul>
                     <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
                 </div>
             </div>
         </div>
-        <a href="logout.php">Cerrar Sesion X </a>
-
     </footer>
 
     <!-- jQuery -->
