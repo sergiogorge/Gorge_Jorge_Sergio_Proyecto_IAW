@@ -45,8 +45,9 @@
                 $obj=$result->fetch_object();
                 $_SESSION["tipo"] = $obj->tipo;
                 echo "Bienvenido " . $_SESSION['username'];
-                //echo "<br><br><a href=index.php>Ir al inicio</a>";
-                header("Location: index.php");
+                var_dump($_SESSION);
+                echo "<br><br><a href=index.php>Ir al inicio</a>";
+                //header("Location: index.php");
               }
 
           } else {

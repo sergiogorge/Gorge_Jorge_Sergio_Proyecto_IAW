@@ -170,9 +170,8 @@
                         </li>
                         <li>
                           <?php
-                          if (isset($_SESSION["tipo"])){
+                          if (isset($_SESSION['tipo'])=='admin'){
                           echo '<a href="index.php">Añadir noticia.</a>';
-                          } else {
                           }
                           ?>
                         </li>
