@@ -63,20 +63,6 @@
                       </li>
 
                       <li>
-                        <?php
-                        if (!isset($_SESSION["tipo"])){
-
-                       }else{
-                       if ($_SESSION["tipo"]=='admin'){
-
-                       }elseif ($_SESSION["tipo"]=='comun') {
-                       echo '<a href="contact.php">Contacto</a> ';
-                       }
-                       }
-                    ?>
-                      </li>
-
-                      <li>
                           <?php
                           if (isset($_SESSION["username"])){
                           echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';

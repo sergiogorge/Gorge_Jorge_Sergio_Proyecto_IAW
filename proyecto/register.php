@@ -63,20 +63,6 @@
                 </li>
 
                 <li>
-                  <?php
-                  if (!isset($_SESSION["tipo"])){
-
-                 }else{
-                 if ($_SESSION["tipo"]=='admin'){
-
-                 }elseif ($_SESSION["tipo"]=='comun') {
-                 echo '<a href="contact.php">Contacto</a> ';
-                 }
-                 }
-              ?>
-                </li>
-
-                <li>
                     <?php
                     if (isset($_SESSION["username"])){
                     echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';
@@ -125,7 +111,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p>Formulario de registro</p>
 
-                <form action= "validregis.php" name="regis" id="registrer"  onSubmit="return validarPasswd()" novalidate method="post">
+                <form action= "regis2.php" name="regis" id="registrer"  onSubmit="return validarPasswd()" novalidate method="post">
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nombre usuario</label>
