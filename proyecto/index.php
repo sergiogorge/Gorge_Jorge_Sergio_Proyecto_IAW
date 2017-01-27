@@ -49,25 +49,55 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="index.php">Inicio</a>
-                    </li>
-                    <li>
-                        <a href="about.html">Sobre nosotros</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">Contacto</a>
-                    </li>
-                    <li>
-                      <?php
-                      if (isset($_SESSION["username"])){
-                      echo '<a href="logout.php">Hola '.$_SESSION['username'].'. Pincha aquí para cerrar sesión.</a>';
-                      } else {
-                      echo '<a href="sesion.php">Iniciar sesión/Registrarse</a>';
-                      }
-                      ?>
-                  </li>    
+                <ul class="nav navbar-nav navbar-right">
+                      <li>
+                        <?php
+                       if (!isset($_SESSION["tipo"])){
+                        echo '<a href="index.php">Inicio</a>';
+                       }else{
+                       if ($_SESSION["tipo"]){
+                         echo '<a href="index.php">Inicio</a>';
+                       }
+                       }
+                       ?>
+                      </li>
+
+                      <li>
+                        <?php
+                        if (!isset($_SESSION["tipo"])){
+
+                       }else{
+                       if ($_SESSION["tipo"]=='admin'){
+
+                       }elseif ($_SESSION["tipo"]=='comun') {
+                       echo '<a href="contact.php">Contacto</a> ';
+                       }
+                       }
+                    ?>
+                      </li>
+
+                      <li>
+                          <?php
+                          if (isset($_SESSION["username"])){
+                          echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';
+                          } else {
+                          echo '<a href="sesion.php">Iniciar sesión</a>';
+                          }
+                          ?>
+                        </li>    
+                     <li>
+                        <?php
+                        if (!isset($_SESSION["tipo"])){
+                       echo '<a href="register.php">Registrarse.</a>';
+                       }else{
+                       if ($_SESSION["tipo"]=='admin'){
+                       echo '<a href="paneladmin.php">Panel de Control admin.</a>';
+                       }elseif ($_SESSION["tipo"]=='comun') {
+                       echo '<a href="index.php">Panel de Control.</a>';
+                       }
+                       }
+                    ?>
+                  </li>
                 </ul>
               </div>
              </div>
@@ -96,7 +126,19 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="col-lg-1" >
+            <h2>
+              CATEGORÍAS
+            </h2>
+          <div id="category">
+            <a href="index.php">Nacional</a>
+            <br></br>
+            <a href="index.php">Internacional</a>
+            <br></br>
+            <a href="index.php">Deportes</a>
+          </div>
+          </div>
+            <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-preview">
                     <a href="post.html">
                         <h2 class="post-title">
@@ -167,13 +209,6 @@
                                     <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
-                        </li>
-                        <li>
-                          <?php
-                          if (isset($_SESSION['tipo'])=='admin'){
-                          echo '<a href="index.php">Añadir noticia.</a>';
-                          }
-                          ?>
                         </li>
                     </ul>
                     <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>

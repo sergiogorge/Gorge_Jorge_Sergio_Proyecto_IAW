@@ -12,34 +12,26 @@
   <body>
 
     <?php
-        //FORM SUBMITTED
         if (isset($_POST["nombre"])) {
 
-          //CREATING THE CONNECTION
           $connection = new mysqli("localhost", "tf", "12345", "proyecto_blog");
 
-          //TESTING IF THE CONNECTION WAS RIGHT
           if ($connection->connect_errno) {
               printf("Connection failed: %s\n", $connection->connect_error);
               exit();
           }
 
-          //MAKING A SELECT QUERY
-          //Password coded with md5 at the database. Look for better options
           $consulta="select * from usuarios where
           nombre_usuario='".$_POST["nombre"]."' and password=md5('".$_POST["password"]."');";
 
-          //Test if the query was correct
-          //SQL Injection Possible
-          //Check http://php.net/manual/es/mysqli.prepare.php for more security
+
           if ($result = $connection->query($consulta)) {
 
-              //No rows returned
               if ($result->num_rows===0) {
                 echo "LOGIN INVALIDO";
                 echo "<br><a href='sesion.php'>Volver a Intentarlo</a>";
               } else {
-                //VALID LOGIN. SETTING SESSION VARS
+
                 $_SESSION["username"]=$_POST["nombre"];
                 $_SESSION["language"]="es";
                 $obj=$result->fetch_object();

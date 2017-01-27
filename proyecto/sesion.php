@@ -50,19 +50,41 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                  <li>
-                      <a href="index.php">Inicio</a>
-                  </li>
-                  <li>
-                      <a href="about.html">Sobre nosotros</a>
-                  </li>
-                  <li>
-                      <a href="contact.html">Contacto</a>
-                  </li>
-                  <li>
-                      <a href="sesion.php">Iniciar sesión/Registrarse</a>
-                  </li>;
-              </ul>
+                <li>
+                   <a href="index.php">Inicio</a>
+                </li>
+
+                <li>
+                   <a href="about.html">Sobre nosotros</a>
+                </li>
+
+                <li>
+                   <a href="contact.php">Contacto</a>
+                </li>
+
+                <li>
+                    <?php
+                    if (isset($_SESSION["username"])){
+                    echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';
+                    } else {
+                    echo '<a href="sesion.php">Iniciar sesión</a>';
+                    }
+                    ?>
+                  </li>    
+               <li>
+                  <?php
+                  if (!isset($_SESSION["tipo"])){
+                 echo '<a href="index.php">Registrarse.</a>';
+                 }else{
+                 if ($_SESSION["tipo"]=='admin'){
+                 echo '<a href="index.php">Panel de Control admin.</a>';
+                 }elseif ($_SESSION["tipo"]=='comun') {
+                 echo '<a href="index.php">Panel de Control.</a>';
+                 }
+                 }
+                 ?>
+               </li>
+              </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -113,7 +135,6 @@
                     <div class="row">
                         <div class="form-group col-xs-12">
                             <button type="submit" class="btn btn-default">Enviar</button>
-                            <button type="submit" class="btn btn-default">Registrarse</button>
                         </div>
                     </div>
                 </form>
@@ -151,7 +172,6 @@
 
     <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
