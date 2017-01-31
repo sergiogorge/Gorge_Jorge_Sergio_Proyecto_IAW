@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Noticias Gorgé</title>
+    <title>Noticias Gorgé - Contacto</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +32,7 @@
     <![endif]-->
 
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -46,6 +47,7 @@
                 <a class="navbar-brand" href="index.php">Noticias Gorgé</a>
             </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li>
@@ -77,107 +79,124 @@
                  if ($_SESSION["tipo"]=='admin'){
                  echo '<a href="paneladmin.php">Panel de Control admin.</a>';
                  }elseif ($_SESSION["tipo"]=='comun') {
-                 echo '<a href="panel-control.php">Panel de Control.</a>';
+                 echo '<a href="index.php">Panel de Control.</a>';
                  }
                  }
               ?>
             </li>
-               </ul>
+             </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 
-
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/images.png')">
+    <header class="intro-header" style="background-image: url('img/gatito.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>Noticias Gorgè</h1>
-                        <hr class="small">
-                        <span class="subheading">Tu blog de noticias, y cada día
-                        el de más gente</span>
+                        <h1>Registrarse</h1>
                     </div>
                 </div>
             </div>
         </div>
     </header>
-
+    <?php if (!isset($_POST["adnombreusu"])) : ?>
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-          <div class="col-lg-1" >
-            <h2>
-              CATEGORÍAS
-            </h2>
-          <div id="category">
-            <a href="index.php">Nacional</a>
-            <br></br>
-            <a href="index.php">Internacional</a>
-            <br></br>
-            <a href="index.php">Deportes</a>
-          </div>
-          </div>
-            <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Man must explore, and this is exploration at its greatest
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Problems look mighty small from 150 miles up
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            I believe every human has a finite number of heartbeats. I don't intend to waste any of mine.
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 18, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Science has not yet mastered prophecy
-                        </h2>
-                        <h3 class="post-subtitle">
-                            We predict too much for the next year and yet far too little for the next ten.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Failure is not an option
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on July 8, 2014</p>
-                </div>
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Formulario de registro</p>
+                <form  name="regis" id="registrer"  onSubmit="return validarPasswd()" novalidate method="post">
+            <!--      <div class="row control-group">
+                      <div class="form-group col-xs-12 floating-label-form-group controls">
+                          <label>ID Usuario</label>
+                          <input type="text" name="adidusu" class="form-control" placeholder="id usuario" id="id" required>
+                          <p class="help-block text-danger"></p>
+                  </div>
+                </div>-->
+                  <div class="row control-group">
+                      <div class="form-group col-xs-12 floating-label-form-group controls">
+                          <label>Tipo</label>
+                          <input type="text" name="adtipousu" class="form-control" placeholder="Tipo usuario" id="type" required>
+                          <p class="help-block text-danger"></p>
+                      </div>
+                  </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Nombre usuario</label>
+                            <input type="text" name="adnombreusu" class="form-control" placeholder="Nombre" id="name" required>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Email</label>
+                            <input type="email" name="adnewemail" class="form-control" placeholder="Email " id="nemail" required>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Contraseña</label>
+                            <input type="password" name="adnewpassword" class="form-control" placeholder="Contraseña" id="npassword" required>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Confirmar contraseña</label>
+                            <input type="password" name="adcnewpassword" class="form-control"  placeholder="Confirmar contraseña" id="ncpassword" required>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-default" name="regis">Registrarse</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+<?php else : ?>
+  <?php
+  $connection2 = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+   if ($connection2->connect_errno) {
+     printf("Connection failed: %s\n", $connection->connect_error);
+     exit();
+     }
+  //$id   = $_POST['adidusu'];
+  $tipo   = $_POST['adtipousu'];
+  $userName = $_POST['adnombreusu'];
+  $password = $_POST['adnewpassword'];
+  $email = $_POST['adnewemail'];
+  $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' ";
+  $result2 = $connection2->query($cons);
+  if ($result2->num_rows==0) {
+  $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
+  VALUES (NULL,'$tipo',md5('$password'),'$email','$userName',sysdate())";
+  $result = $connection2->query($consulta);
+  if (!$result) {
+     echo "error";
+  } else {
+    echo "Registro completado";
+    header("Refresh:2; url=paneladmin.php");
+  }
+   } else {
+    echo "Ese user ya está registrado";
+    header("Refresh:2; url=paneladmin.php");
+  }
+  ?>
+<?php endif ?>
+    <hr>
 
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
@@ -197,8 +216,8 @@
                 </div>
             </div>
         </div>
+      </footer>
 
-    </footer>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -207,11 +226,11 @@
 
     <!-- Contact Form JavaScript -->
     <script src="js/jqBootstrapValidation.js"></script>
-    <script src="js/contact_me.js"></script>
 
     <!-- Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
+    <!--Check password -->
+    <script src="js/checkpass.js"></script>
 </body>
-
 </html>

@@ -36,10 +36,11 @@
                 $_SESSION["language"]="es";
                 $obj=$result->fetch_object();
                 $_SESSION["tipo"] = $obj->tipo;
-                echo "Bienvenido " . $_SESSION['username'];
-                var_dump($_SESSION);
-                echo "<br><br><a href=index.php>Ir al inicio</a>";
-                //header("Location: index.php");
+                //echo "Bienvenido " . $_SESSION['username'];
+              // var_dump($_SESSION);
+              //  echo "<br><br><a href=index.php>Ir al inicio</a>";
+
+              header("Location: index.php");
               }
 
           } else {

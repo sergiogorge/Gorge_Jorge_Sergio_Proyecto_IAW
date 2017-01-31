@@ -269,13 +269,16 @@ hr.small {
   border-bottom-left-radius: 5px;
 }
 footer {
+  position: absolute;
   padding: 50px 0 65px;
 }
 footer .list-inline {
+  position: absolute;
   margin: 0;
   padding: 0;
 }
 footer .copyright {
+  position: absolute;
   font-size: 14px;
   text-align: center;
   margin-bottom: 0;

@@ -2,6 +2,9 @@
 <html lang="en">
 <?php
   session_start();
+  if (isset($_SESSION["tipo"])){
+    header("Location:error2.php");
+  }
 ?>
 <head>
 
@@ -11,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Noticias Gorgé - Iniciar sesión/Registrarse</title>
+    <title>Noticias Gorgé</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,16 +54,16 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
                 <li>
-                   <a href="index.php">Inicio</a>
+                  <?php
+                 if (!isset($_SESSION["tipo"])){
+                  echo '<a href="index.php">Inicio</a>';
+                 }else{
+                 if ($_SESSION["tipo"]){
+                   echo '<a href="index.php">Inicio</a>';
+                 }
+                 }
+                 ?>
                 </li>
-
-                <li>
-                   <a href="about.html">Sobre nosotros</a>
-                </li>
-
-                <li>
-                   <a href="contact.php">Contacto</a>
-                </li>
 
                 <li>
                     <?php
@@ -74,16 +77,16 @@
                <li>
                   <?php
                   if (!isset($_SESSION["tipo"])){
-                 echo '<a href="index.php">Registrarse.</a>';
+                 echo '<a href="register.php">Registrarse.</a>';
                  }else{
                  if ($_SESSION["tipo"]=='admin'){
-                 echo '<a href="index.php">Panel de Control admin.</a>';
+                 echo '<a href="paneladmin.php">Panel de Control admin.</a>';
                  }elseif ($_SESSION["tipo"]=='comun') {
                  echo '<a href="index.php">Panel de Control.</a>';
                  }
                  }
-                 ?>
-               </li>
+              ?>
+            </li>
               </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -116,6 +119,7 @@
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
                 <form action= "login2.php" name="inisesion" id="sesion" novalidate method="post">
+                  <!--<form action= "panel-control.php" name="inisesion" id="sesion" novalidate method="post"> -->
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nombre usuario</label>
@@ -148,17 +152,17 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="http://www.twitter.com/sergiogorge">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
+                      <ul class="list-inline text-center">
+                          <li>
+                              <a href="http://www.twitter.com/sergiogorge">
+                                  <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                  </span>
+                              </a>
+                          </li>
+                      </ul>
+                      <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
                 </div>
             </div>
         </div>
