@@ -120,9 +120,14 @@
                 </div>-->
                   <div class="row control-group">
                       <div class="form-group col-xs-12 floating-label-form-group controls">
-                          <label>Tipo</label>
+                        <select name="adtipousu" placeholder="tipo">
+                             <option>admin</option>
+                             <option>comun</option>
+                           </select><br/><br/>
+                           <p class="help-block text-danger"></p>
+                          <!--<label>Tipo</label>
                           <input type="text" name="adtipousu" class="form-control" placeholder="Tipo usuario" id="type" required>
-                          <p class="help-block text-danger"></p>
+                          <p class="help-block text-danger"></p>-->
                       </div>
                   </div>
                     <div class="row control-group">
@@ -166,7 +171,7 @@
     </div>
 <?php else : ?>
   <?php
-  $connection2 = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+  $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
    if ($connection2->connect_errno) {
      printf("Connection failed: %s\n", $connection->connect_error);
      exit();

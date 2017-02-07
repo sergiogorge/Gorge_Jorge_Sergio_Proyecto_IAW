@@ -153,7 +153,7 @@
     </div>
 <?php else : ?>
   <?php
-        $connection2 = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+        $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
          if ($connection2->connect_errno) {
            printf("Connection failed: %s\n", $connection->connect_error);
            exit();

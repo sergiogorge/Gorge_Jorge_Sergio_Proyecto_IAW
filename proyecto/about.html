@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php
-  session_start();
-?>
+
 <head>
 
     <meta charset="utf-8">
@@ -11,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Noticias Gorgé</title>
+    <title>Clean Blog - About</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,6 +30,7 @@
     <![endif]-->
 
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -46,61 +45,38 @@
                 <a class="navbar-brand" href="index.php">Noticias Gorgé</a>
             </div>
 
+            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li>
-                  <?php
-                 if (!isset($_SESSION["tipo"])){
-                  echo '<a href="index.php">Inicio</a>';
-                 }else{
-                 if ($_SESSION["tipo"]){
-                   echo '<a href="index.php">Inicio</a>';
-                 }
-                 }
-                 ?>
-                </li>
-
-                <li>
-                    <?php
-                    if (isset($_SESSION["username"])){
-                    echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';
-                    } else {
-                    echo '<a href="sesion.php">Iniciar sesión</a>';
-                    }
-                    ?>
-                  </li>    
-               <li>
-                  <?php
-                  if (!isset($_SESSION["tipo"])){
-                 echo '<a href="register.php">Registrarse.</a>';
-                 }else{
-                 if ($_SESSION["tipo"]=='admin'){
-                 echo '<a href="paneladmin.php">Panel de Control admin.</a>';
-                 }elseif ($_SESSION["tipo"]=='comun') {
-                 echo '<a href="panel-control.php">Panel de Control.</a>';
-                 }
-                 }
-              ?>
-            </li>
-               </ul>
+                  <li>
+                      <a href="index.php">Inicio</a>
+                  </li>
+                  <li>
+                      <a href="about.html">Sobre nosotros</a>
+                  </li>
+                  <li>
+                      <a href="contact.html">Contacto</a>
+                  </li>
+                  <li>
+                      <a href="sesion.php">Iniciar sesión/Registrarse</a>
+                  </li>;
+              </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 
-
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/images.png')">
+    <header class="intro-header" style="background-image: url('img/about-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>Noticias Gorgè</h1>
+                        <h1>About Me</h1>
                         <hr class="small">
-                        <span class="subheading">Tu blog de noticias, y cada día
-                        el de más gente</span>
+                        <span class="subheading">This is what I do.</span>
                     </div>
                 </div>
             </div>
@@ -110,57 +86,17 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-          <div class="col-lg-1" >
-            <h2>
-              CATEGORÍAS
-            </h2>
-          <div id="category">
-            <a href="index.php">Nacional</a>
-            <br></br>
-            <a href="index.php">Internacional</a>
-            <br></br>
-            <a href="index.php">Deportes</a>
-          </div>
-          </div>
-            <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-
-                          <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }
-                                     if ($result = $connection->query("SELECT *
-                                        FROM noticia order by fModificacion ;")) {
-
-                                             while($obj = $result->fetch_object()) {
-                                                 echo "<div class='post-preview'>";
-                                                 echo "<h2 class='post-title'>";
-                                                 echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
-                                                 echo "</h2>";
-                                                 echo "</div>";
-                                                 echo'<p class="post-meta">Posted by Sergio on '.$obj->fCreacion.'</p>';
-                                             }
-                                             $result->close();
-                                             unset($obj);
-                                             unset($connection);
-                                           }
-                            ?>
-                        </h2>
-
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum molestiae debitis nobis, quod sapiente qui voluptatum, placeat magni repudiandae accusantium fugit quas labore non rerum possimus, corrupti enim modi! Et.</p>
             </div>
         </div>
     </div>
 
+    <hr>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="row">
@@ -176,12 +112,11 @@
                         </li>
                     </ul>
                     <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
-
                 </div>
             </div>
         </div>
-
     </footer>
+
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 

@@ -118,7 +118,7 @@
                   echo'<div class="row control-group">';
                       echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
                           echo '<h2>USUARIOS</h2>';
-                          $connection = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                           if ($connection->connect_errno) {
                               printf("Connection failed: %s\n", $connection->connect_error);
                               exit();
@@ -171,7 +171,8 @@
                       echo'<div class="row control-group">';
                           echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
                               echo '<h2>NOTICIAS</h2>';
-                              $connection = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+                              $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
                               if ($connection->connect_errno) {
                                   printf("Connection failed: %s\n", $connection->connect_error);
                                   exit();
@@ -199,7 +200,7 @@
                                                      echo "<td>".$obj->fCreacion."</td>";
                                                      echo "<td>".$obj->fModificacion."</td>";
                                                      echo "<td>".$obj->idCategoria."</td>";
-                                                     echo "<td>".$obj->imagen."</td>";
+                                                     echo '<td><img src="'.$obj->image.'" width=40% /></td>';
                                                      echo "<td>
                                                      <a href='borrar.php?id=$obj->idUsuario'>
                                                      <img src='borrar.jpg' width='30%';/>
@@ -229,8 +230,13 @@
                     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                         <ul class="list-inline text-center">
                           <li>
-                          <a href="anadirnoticia.php">Añadir noticia</a>
-                          </li>
+                            <a href="registeradmin.php">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-child fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                                </li>
                             <li>
                                 <a href="http://www.twitter.com/sergiogorge">
                                     <span class="fa-stack fa-lg">
@@ -240,8 +246,13 @@
                                 </a>
                             </li>
                             <li>
-                            <a href="registeradmin.php">Añadir usuario</a>
-                            </li>
+                              <a href="anadirnoticia.php">
+                                  <span class="fa-stack fa-lg">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+                                  </span>
+                                </a>
+                                          </li>
                         </ul>
                         <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
 

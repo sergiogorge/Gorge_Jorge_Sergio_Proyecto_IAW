@@ -162,7 +162,7 @@
     //if (empty($_GET))
     //die("Tienes que pasar algun parametro por GET.");
     //$a = $_GET['id'];
-       $connection2 = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+       $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
         if ($connection2->connect_errno) {
           printf("Connection failed: %s\n", $connection->connect_error);
           exit();
@@ -171,24 +171,25 @@
           $password = $_POST['newpassword'];
           $email = $_POST['newemail'];
           $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  OR email='$email' ";
-          $result2 = $connection2->query($cons);
+          $result2  = $connection2->query($cons);
           if ($result2->num_rows==0) {
-            if(isset($_POST['nombreusu'])){
+            if(isset($_POST['nombreusu']) && $_POST['nombreusu']!=="" ){
           $consulta= "UPDATE `usuarios` SET `nombre_usuario` = '$userName'
            WHERE `usuarios`.`idUsuario` = '$a' ";
           $result = $connection2->query($consulta);
            }
-             if(isset($_POST['newemail'])){
+          if(isset($_POST['newemail']) && $_POST['newemail']!=="" ){
             $consulta= "UPDATE `usuarios` SET `email` = '$email'
              WHERE `usuarios`.`idUsuario` = '$a' ";
             $result = $connection2->query($consulta);
-
-          } if(isset($_POST['newpassword'])){
+          }
+          if(isset($_POST['newpassword']) && $_POST['newpassword']!=="" ){
             $consulta= "UPDATE `usuarios` SET `password` = md5('$password')
              WHERE `usuarios`.`idUsuario` = '$a' ";
             $result = $connection2->query($consulta);
 
-            }if (!$result) {
+            }
+            if (!$result) {
                echo "error";
             } else {
               echo "Datos cambiados";

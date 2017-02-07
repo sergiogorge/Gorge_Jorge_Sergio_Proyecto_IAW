@@ -110,6 +110,7 @@
         </div>
     </header>
 
+    <?php if (!isset($_POST["nombre"])) : ?>
     <!-- Main Content -->
     <div class="container">
         <div class="row">
@@ -118,7 +119,7 @@
                 <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
                 <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
                 <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-                <form action= "login2.php" name="inisesion" id="sesion" novalidate method="post">
+                <form name="inisesion" id="sesion" novalidate method="post">
                   <!--<form action= "panel-control.php" name="inisesion" id="sesion" novalidate method="post"> -->
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
@@ -145,6 +146,50 @@
             </div>
         </div>
     </div>
+<?php else :?>
+<?php
+$connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+if ($connection->connect_errno) {
+    printf("Connection failed: %s\n", $connection->connect_error);
+    exit();
+}
+
+$consulta="select * from usuarios where
+nombre_usuario='".$_POST["nombre"]."' and password=md5('".$_POST["password"]."');";
+
+
+if ($result = $connection->query($consulta)) {
+
+    if ($result->num_rows===0) {
+      echo "LOGIN INVALIDO";
+      echo "<br><a href='sesion.php'>Volver a Intentarlo</a>";
+    } else {
+
+      $_SESSION["username"]=$_POST["nombre"];
+      $_SESSION["language"]="es";
+      $obj=$result->fetch_object();
+      $_SESSION["tipo"] = $obj->tipo;
+      //echo "Bienvenido " . $_SESSION['username'];
+    // var_dump($_SESSION);
+    //  echo "<br><br><a href=index.php>Ir al inicio</a>";
+    if ( $obj->tipo == 'admin') {
+header("Location:paneladmin.php");
+echo "<br>";
+}elseif ($obj->tipo == 'comun') {
+header("Location:panel-control.php");
+echo "<br>";
+  }
+    //
+    }
+
+} else {
+  echo "Usuario o contraseñas incorrectos";
+  echo "<br><a href='sesion.php'>Volver a Intentarlo</a>";
+
+}
+ ?>
+<?php endif ?>
 
 <hr>
     <!-- Footer -->

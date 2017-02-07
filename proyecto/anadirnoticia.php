@@ -120,7 +120,7 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Titular</label>
-                            <input type="text" class="form-control" name="titular" placeholder=" " id="titular" >
+                            <input type="text" class="form-control" name="titular" placeholder="Titular " id="titular" >
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -186,17 +186,20 @@
                   //Put the file in its place
                   move_uploaded_file($tmp_file, $target_file);
                   //CREATING THE CONNECTION
-                  $connection = new mysqli("localhost", "tf", "12345", "proyecto_blog");
+                  $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                    //TESTING IF THE CONNECTION WAS RIGHT
                    if ($connection->connect_errno) {
                      printf("Connection failed: %s\n", $connection->connect_error);
-                       exit();                     }
+                       exit();
+                     }
 
                     $titular = $_POST['titular'];
                     $categoria = $_POST['categoria'];
                     $cuerpo = $_POST['cuerpo'];
 
-                  $consulta="INSERT INTO noticia VALUES(NULL ,'$titular','$cuerpo',sysdate(),sysdate(),NULL,1,'$categoria','$target_file')";
+            $consulta="INSERT INTO noticia (idNoticia,titular,cuerpo,fCreacion,
+              fPublicacion,fModificacion,idUsuario,idCategoria,image)
+             VALUES(NULL ,'$titular','$cuerpo',sysdate(),sysdate(),NULL,1,'$categoria','$target_file')";
   	        $result = $connection->query($consulta);
   	        if (!$result) {
    		         echo "Query Error";
