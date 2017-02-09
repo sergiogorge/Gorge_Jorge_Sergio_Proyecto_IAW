@@ -2,6 +2,10 @@
 <html lang="en">
 <?php
   session_start();
+  if (empty($_GET))
+  die("Tienes que pasar algun parametro por GET.");
+  //Declaración de la variable item y se le introduce lo que viene de GET
+  $a = $_GET['id'];
 ?>
 <head>
 
@@ -146,14 +150,15 @@
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia order by idNoticia DESC limit 3 ;")) {
-
+                                        FROM noticia where idNoticia='$a';")) {
                                              while($obj = $result->fetch_object()) {
                                                  echo "<div class='post-preview'>";
                                                  echo "<h2 class='post-title'>";
                                                  echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
                                                  echo "</h2>";
+                                                 echo "<img src=$obj->image width=40% />";
                                                  echo "</div>";
+                                                 echo "$obj->cuerpo";
                                                  echo'<p class="post-meta">Posted by Sergio on '.$obj->fCreacion.'</p>';
                                              }
                                              $result->close();
@@ -161,15 +166,9 @@
                                              unset($connection);
                                            }
                             ?>
-
+                        </h2>
 
                 <hr>
-                <!-- Pager -->
-               <ul class="pager">
-                   <li class="next">
-                       <a href="todas.php">Todas las noticias &rarr;</a>
-                   </li>
-               </ul>
             </div>
         </div>
     </div>

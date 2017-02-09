@@ -146,7 +146,7 @@
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia order by idNoticia DESC limit 3 ;")) {
+                                        FROM noticia order by idNoticia DESC ;")) {
 
                                              while($obj = $result->fetch_object()) {
                                                  echo "<div class='post-preview'>";
@@ -167,9 +167,8 @@
                 <!-- Pager -->
                <ul class="pager">
                    <li class="next">
-                       <a href="todas.php">Todas las noticias &rarr;</a>
+                       <a href="index.php">&larr;Menos noticias </a>
                    </li>
-               </ul>
             </div>
         </div>
     </div>

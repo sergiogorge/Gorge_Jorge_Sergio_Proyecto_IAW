@@ -195,7 +195,7 @@
 
                     $titular = $_POST['titular'];
                     $categoria = $_POST['categoria'];
-                    $cuerpo = $_POST['cuerpo'];
+                    $cuerpo = nl2br($_POST['cuerpo']);
 
             $consulta="INSERT INTO noticia (idNoticia,titular,cuerpo,fCreacion,
               fPublicacion,fModificacion,idUsuario,idCategoria,image)
@@ -203,6 +203,7 @@
   	        $result = $connection->query($consulta);
   	        if (!$result) {
    		         echo "Query Error";
+               var_dump($consulta);
             } else {
 
               echo "<br/><br/><br/><h2>Tus datos han añadido correctamente en el sistema</h2>";

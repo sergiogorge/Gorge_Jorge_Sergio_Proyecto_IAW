@@ -202,7 +202,7 @@
                                                      echo "<td>".$obj->idCategoria."</td>";
                                                      echo '<td><img src="'.$obj->image.'" width=40% /></td>';
                                                      echo "<td>
-                                                     <a href='borrar.php?id=$obj->idUsuario'>
+                                                     <a href='borrarnot.php?id=$obj->idNoticia'>
                                                      <img src='borrar.jpg' width='30%';/>
                                                    </a></td>";
                                                    echo "<td>
