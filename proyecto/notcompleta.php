@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
   session_start();
   if (empty($_GET))
@@ -7,6 +5,8 @@
   //Declaración de la variable item y se le introduce lo que viene de GET
   $a = $_GET['id'];
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 
     <meta charset="utf-8">
@@ -57,7 +57,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -83,7 +83,7 @@
                  }elseif ($_SESSION["tipo"]=='comun') {
                  echo '<a href="panel-control.php">Panel de Control.</a>';
                  }
-                 }
+                  }
               ?>
             </li>
                </ul>
@@ -138,10 +138,8 @@
                                unset($connection);
                              }
               ?>
-          </div>
+            </div>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-
                           <?php
                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
@@ -150,29 +148,112 @@
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia where idNoticia='$a';")) {
+                                        FROM noticia  join usuarios on noticia.idUsuario
+                                        =usuarios.idusuario where idNoticia='$a';")) {
                                              while($obj = $result->fetch_object()) {
-                                                 echo "<div class='post-preview'>";
+                                               echo "<div class='post-preview'>";
                                                  echo "<h2 class='post-title'>";
                                                  echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
-                                                 echo "</h2>";
+                                                echo "</h2>";
                                                  echo "<img src=$obj->image width=40% />";
                                                  echo "</div>";
                                                  echo "$obj->cuerpo";
-                                                 echo'<p class="post-meta">Posted by Sergio on '.$obj->fCreacion.'</p>';
-                                             }
+                                                 if($obj->fModificacion!=NULL) {
+                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</p>';
+                                                 }else{
+                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</p>';
+                                                 }
+                                               }
                                              $result->close();
                                              unset($obj);
                                              unset($connection);
                                            }
-                            ?>
-                        </h2>
+                                           echo "<h2>COMENTARIOS</h2>";
+                                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                           if ($connection->connect_errno) {
+                                               printf("Connection failed: %s\n", $connection->connect_error);
+                                               exit();
+                                           }
+                                           if ($result = $connection->query("SELECT *
+                                              FROM comentarios join noticia on comentarios.idNoticia
+                                              =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idUsuario where noticia.idNoticia='$a' order by idComentario DESC;")) {
+                                                   while($obj = $result->fetch_object()) {
+                                                       echo "$obj->comentario";
+                                                         echo'<b><p class="post-meta">Escrito por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</b></p>';
+                                                      }
+                                                   $result->close();
+                                                   unset($obj);
+                                                   unset($connection);
+                                                 }
 
+                                                   if (isset($_SESSION["tipo"])){
+                                                     echo '<h2>AÑADIR COMENTARIO</h2>';
+                                                     echo '<form  name="comentar" id="comentar" novalidate method="post">';
+                                                     echo'<div class="row control-group">';
+                                                     echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
+                                                     echo'<textarea rows="5" class="form-control" name="com"
+                                                      placeholder="Comentario..." id="comentario"
+                                                   required data-validation-required-message="Please enter a message."></textarea>';
+                                                     echo'<p class="help-block text-danger"></p>';
+                                                     echo'</div>';
+                                                     echo'</div>';
+                                                     echo'<button type="submit" class="btn btn-default" name="comentar">Enviar comentario</button>';
+                                                     if (isset($_POST["com"])){
+                                                       $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                        if ($connection2->connect_errno) {
+                                                          printf("Connection failed: %s\n", $connection->connect_error);
+                                                          exit();
+                                                          }
+                                                       $com= nl2br($_POST["com"]);
+                                                       $user=$_SESSION["id"];
+                                                       $consulta= "INSERT INTO comentarios (idComentario,idNoticia,idUsuario,comentario,fCreacion)
+                                                       VALUES (NULL,'$a','$user','$com',sysdate())";
+                                                       $result = $connection2->query($consulta);
+                                                       if (!$result) {
+                                                          echo "error";
+                                                       } else {
+                                                         header('Location:notcompleta.php');
+                                                        }
+                                                     }
+                                                     echo '<h2>VALORAR</h2>';
+                                                     echo '<form  name="valorar" id="valorar" novalidate method="post">';
+                                                     echo'<div class="row control-group">';
+                                                         echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
+                                                           echo'<select name="val" placeholder="tipo">';
+                                                                echo'<option>0</option>';
+                                                                echo'<option>1</option>';
+                                                                echo'<option>2</option>';
+                                                                echo'<option>3</option>';
+                                                                echo'<option>4</option>';
+                                                                echo'<option>5</option>';
+                                                                echo'<option>6</option>';
+                                                                echo'<option>7</option>';
+                                                                echo'<option>8</option>';
+                                                                echo'<option>9</option>';
+                                                                echo'<option>10</option>';
+                                                              echo'</select><br/><br/>';
+                                                              echo'<p class="help-block text-danger"></p>';
+                                                              echo'<button type="submit" class="btn btn-default" name="valorar">Valorar</button>';
+                                                              echo '</div>';
+                                                              echo '</div>';
+                                                      if (isset($_POST["val"])){
+                                                        $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                         if ($connection2->connect_errno) {
+                                                           printf("Connection failed: %s\n", $connection->connect_error);
+                                                           exit();
+                                                           }
+                                                        $val= $_POST["val"];
+                                                        $user=$_SESSION["id"];
+                                                        $consulta= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota)
+                                                        VALUES (NULL,'$a','$user','$val')";
+                                                        $result = $connection2->query($consulta);
+                                                         }
+                                                        }
+                            ?>
+                </div>
                 <hr>
-            </div>
         </div>
     </div>
-
     <footer>
         <div class="container">
             <div class="row">

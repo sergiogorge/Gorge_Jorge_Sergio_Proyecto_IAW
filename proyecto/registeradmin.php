@@ -55,7 +55,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }

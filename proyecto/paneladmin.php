@@ -59,7 +59,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -178,8 +178,8 @@
                                   exit();
                               }
                                          $user=$_SESSION['username'];
-                                         if ($result = $connection->query("SELECT *
-                                            FROM noticia;")) {
+                                         if ($result = $connection->query("SELECT noticia.*,avg(valoraciones.nota) as media
+                                            FROM noticia right join valoraciones on noticia.idNoticia=valoraciones.idNoticia;")) {
                                              echo"<table style='border:1px solid black'>";
                                              echo"<thead>";
                                              echo"<tr>";
@@ -190,6 +190,7 @@
                                              echo"<th>Fecha Modificación </th>";
                                              echo "<th>Categoría</th>";
                                              echo "<th>Imagen</th>";
+                                             echo "<th>Media</th>";
                                              echo "<th>Borrar</th>";
                                              echo "<th>Editar</th>";
                                             echo"</thead>";
@@ -201,6 +202,7 @@
                                                      echo "<td>".$obj->fModificacion."</td>";
                                                      echo "<td>".$obj->idCategoria."</td>";
                                                      echo '<td><img src="'.$obj->image.'" width=40% /></td>';
+                                                     echo "<td>".$obj->media."</td>";
                                                      echo "<td>
                                                      <a href='borrarnot.php?id=$obj->idNoticia'>
                                                      <img src='borrar.jpg' width='30%';/>

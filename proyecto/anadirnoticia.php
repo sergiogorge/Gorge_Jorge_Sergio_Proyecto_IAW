@@ -59,7 +59,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -196,10 +196,10 @@
                     $titular = $_POST['titular'];
                     $categoria = $_POST['categoria'];
                     $cuerpo = nl2br($_POST['cuerpo']);
-
+                    $id = $_SESSION["id"];
             $consulta="INSERT INTO noticia (idNoticia,titular,cuerpo,fCreacion,
               fPublicacion,fModificacion,idUsuario,idCategoria,image)
-             VALUES(NULL ,'$titular','$cuerpo',sysdate(),sysdate(),NULL,1,'$categoria','$target_file')";
+             VALUES(NULL ,'$titular','$cuerpo',sysdate(),sysdate(),NULL,'$id','$categoria','$target_file')";
   	        $result = $connection->query($consulta);
   	        if (!$result) {
    		         echo "Query Error";
@@ -209,7 +209,7 @@
               echo "<br/><br/><br/><h2>Tus datos han añadido correctamente en el sistema</h2>";
               header("Refresh:1; url=paneladmin.php");
               echo "<br/><br/>";
-              echo "<a href='../'><h4 id='homeHeading'>Volver al panel</h4></a>";
+              //echo "<a href='../'><h4 id='homeHeading'>Volver al panel</h4></a>";
               echo "<br/><br/>";
 
             }

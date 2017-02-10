@@ -58,7 +58,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -169,22 +169,22 @@ if ($result = $connection->query($consulta)) {
       $_SESSION["username"]=$_POST["nombre"];
       $_SESSION["language"]="es";
       $obj=$result->fetch_object();
+      $_SESSION["id"]= $obj ->idUsuario;
       $_SESSION["tipo"] = $obj->tipo;
       //echo "Bienvenido " . $_SESSION['username'];
-    // var_dump($_SESSION);
-    //  echo "<br><br><a href=index.php>Ir al inicio</a>";
-    if ( $obj->tipo == 'admin') {
+  //  var_dump($_SESSION);
+  //echo "<br><br><a href=index.php>Ir al inicio</a>";
+   if ( $obj->tipo == 'admin') {
 header("Location:paneladmin.php");
 echo "<br>";
 }elseif ($obj->tipo == 'comun') {
 header("Location:panel-control.php");
 echo "<br>";
   }
-    //
-    }
 
-} else {
-  echo "Usuario o contraseñas incorrectos";
+  }
+}else {
+ echo "Usuario o contraseñas incorrectos";
   echo "<br><a href='sesion.php'>Volver a Intentarlo</a>";
 
 }

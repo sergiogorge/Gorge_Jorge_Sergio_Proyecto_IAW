@@ -53,7 +53,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -146,7 +146,8 @@
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia order by idNoticia DESC ;")) {
+                                        FROM noticia  join usuarios on noticia.idUsuario
+                                        =usuarios.idusuario order by idNoticia DESC ;")) {
 
                                              while($obj = $result->fetch_object()) {
                                                  echo "<div class='post-preview'>";
@@ -154,8 +155,12 @@
                                                  echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
                                                  echo "</h2>";
                                                  echo "</div>";
-                                                 echo'<p class="post-meta">Posted by Sergio on '.$obj->fCreacion.'</p>';
-                                             }
+                                                 if ($obj->fModificacion!=NULL) {
+                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'.Modificada el '.$obj->fModificacion.'</p>';
+
+                                                 }else{
+                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</p>';
+                                                 }                                             }
                                              $result->close();
                                              unset($obj);
                                              unset($connection);

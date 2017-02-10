@@ -60,7 +60,7 @@
                  if (!isset($_SESSION["tipo"])){
                   echo '<a href="index.php">Inicio</a>';
                  }else{
-                 if ($_SESSION["tipo"]){
+                 if (isset($_SESSION["tipo"])){
                    echo '<a href="index.php">Inicio</a>';
                  }
                  }
@@ -128,7 +128,7 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo email</label>
-                            <input type="email" name="newemail" class="form-control" placeholder="Nuevo email " id="nemail" required>
+                            <input type="email" name="newemail" class="form-control" placeholder="Nuevo email" id="nemail" required>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
