@@ -171,6 +171,7 @@ if ($result = $connection->query($consulta)) {
       $obj=$result->fetch_object();
       $_SESSION["id"]= $obj ->idUsuario;
       $_SESSION["tipo"] = $obj->tipo;
+      $_SESSION["nombre"] = $obj->nombre_usuario;
       //echo "Bienvenido " . $_SESSION['username'];
   //  var_dump($_SESSION);
   //echo "<br><br><a href=index.php>Ir al inicio</a>";

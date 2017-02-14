@@ -1,9 +1,10 @@
 <?php
+ob_start();
+?>
+<?php
   session_start();
-  if (empty($_GET))
-  die("Tienes que pasar algun parametro por GET.");
-  //Declaración de la variable item y se le introduce lo que viene de GET
-  $a = $_GET['id'];
+  $a=$_GET['id'];
+  $geturl=http_build_query($_GET);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,9 +160,9 @@
                                                  echo "</div>";
                                                  echo "$obj->cuerpo";
                                                  if($obj->fModificacion!=NULL) {
-                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</p>';
+                                                   echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</b></p>';
                                                  }else{
-                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</p>';
+                                                   echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</b></p>';
                                                  }
                                                }
                                              $result->close();
@@ -179,7 +180,7 @@
                                               =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idUsuario where noticia.idNoticia='$a' order by idComentario DESC;")) {
                                                    while($obj = $result->fetch_object()) {
                                                        echo "$obj->comentario";
-                                                         echo'<b><p class="post-meta">Escrito por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</b></p>';
+                                                         echo'<b><p class="post-meta">Escrito por '.$obj->nombre_usuario.' el '.$obj->fCreacionC.'</b></p>';
                                                       }
                                                    $result->close();
                                                    unset($obj);
@@ -188,38 +189,38 @@
 
                                                    if (isset($_SESSION["tipo"])){
                                                      echo '<h2>AÑADIR COMENTARIO</h2>';
-                                                     echo '<form  name="comentar" id="comentar" novalidate method="post">';
+                                                     echo '<form name="comentario" id="comentar" novalidate method="post">';
                                                      echo'<div class="row control-group">';
                                                      echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
                                                      echo'<textarea rows="5" class="form-control" name="com"
                                                       placeholder="Comentario..." id="comentario"
-                                                   required data-validation-required-message="Please enter a message."></textarea>';
+                                                   required></textarea>';
                                                      echo'<p class="help-block text-danger"></p>';
                                                      echo'</div>';
                                                      echo'</div>';
                                                      echo'<button type="submit" class="btn btn-default" name="comentar">Enviar comentario</button>';
-                                                     if (isset($_POST["com"])){
-                                                       $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                        if ($connection2->connect_errno) {
-                                                          printf("Connection failed: %s\n", $connection->connect_error);
+                                                     if (isset($_POST["comentar"])){
+                                                       $connection3 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                        if ($connection3->connect_errno) {
+                                                          printf("Connection failed: %s\n", $connection3->connect_error);
                                                           exit();
                                                           }
                                                        $com= nl2br($_POST["com"]);
                                                        $user=$_SESSION["id"];
-                                                       $consulta= "INSERT INTO comentarios (idComentario,idNoticia,idUsuario,comentario,fCreacion)
+                                                       $consulta= "INSERT INTO comentarios (idComentario,idNoticia,idUsuario,comentario,fCreacionC)
                                                        VALUES (NULL,'$a','$user','$com',sysdate())";
-                                                       $result = $connection2->query($consulta);
+                                                       $result = $connection3->query($consulta);
                                                        if (!$result) {
                                                           echo "error";
                                                        } else {
-                                                         header('Location:notcompleta.php');
+                                                         header('Location:notcompleta.php'."?".$geturl);
                                                         }
                                                      }
                                                      echo '<h2>VALORAR</h2>';
                                                      echo '<form  name="valorar" id="valorar" novalidate method="post">';
                                                      echo'<div class="row control-group">';
                                                          echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
-                                                           echo'<select name="val" placeholder="tipo">';
+                                                           echo'<select name="val">';
                                                                 echo'<option>0</option>';
                                                                 echo'<option>1</option>';
                                                                 echo'<option>2</option>';
@@ -239,14 +240,14 @@
                                                       if (isset($_POST["val"])){
                                                         $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                                                          if ($connection2->connect_errno) {
-                                                           printf("Connection failed: %s\n", $connection->connect_error);
+                                                           printf("Connection failed: %s\n", $connection2->connect_error);
                                                            exit();
                                                            }
                                                         $val= $_POST["val"];
                                                         $user=$_SESSION["id"];
-                                                        $consulta= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota)
+                                                        $cons= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota)
                                                         VALUES (NULL,'$a','$user','$val')";
-                                                        $result = $connection2->query($consulta);
+                                                        $result2= $connection2->query($cons);
                                                          }
                                                         }
                             ?>
@@ -291,3 +292,6 @@
 </body>
 
 </html>
+<?php
+ob_end_flush();
+?>
