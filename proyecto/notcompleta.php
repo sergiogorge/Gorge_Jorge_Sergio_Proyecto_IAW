@@ -3,6 +3,8 @@ ob_start();
 ?>
 <?php
   session_start();
+  if (empty($_GET))
+  die("Tienes que pasar algun parametro por GET.");
   $a=$_GET['id'];
   $geturl=http_build_query($_GET);
 ?>
@@ -180,6 +182,12 @@ ob_start();
                                               =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idUsuario where noticia.idNoticia='$a' order by idComentario DESC;")) {
                                                    while($obj = $result->fetch_object()) {
                                                        echo "$obj->comentario";
+                                                       if(isset($_SESSION["tipo"])){
+                                                         if($_SESSION["id"]==$obj->idUsuario){
+                                                           echo"<a href='borrarcom.php?id=$obj->idComentario'>
+                                                           <button type='submit' class='btn btn-default' name='borrar'>Borrar comentario</button></a>";
+                                                         }
+                                                       }
                                                          echo'<b><p class="post-meta">Escrito por '.$obj->nombre_usuario.' el '.$obj->fCreacionC.'</b></p>';
                                                       }
                                                    $result->close();
@@ -248,6 +256,11 @@ ob_start();
                                                         $cons= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota)
                                                         VALUES (NULL,'$a','$user','$val')";
                                                         $result2= $connection2->query($cons);
+                                                        if (!$result) {
+                                                           echo "error";
+                                                        } else {
+                                                          header('Location:notcompleta.php'."?".$geturl);
+                                                         }
                                                          }
                                                         }
                             ?>
