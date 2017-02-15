@@ -160,7 +160,7 @@ ob_start();
                                                 echo "</h2>";
                                                  echo "<img src=$obj->image width=40% />";
                                                  echo "</div>";
-                                                 echo "$obj->cuerpo";
+                                                 echo "<p class='text-justify'>'$obj->cuerpo'</p>";
                                                  if($obj->fModificacion!=NULL) {
                                                    echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</b></p>';
                                                  }else{
@@ -180,8 +180,12 @@ ob_start();
                                            if ($result = $connection->query("SELECT *
                                               FROM comentarios join noticia on comentarios.idNoticia
                                               =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idUsuario where noticia.idNoticia='$a' order by idComentario DESC;")) {
+                                                  if ($result->num_rows==0) {
+                                                    echo "No hay comenarios";
+                                                    echo "<br>";
+                                                  }else{
                                                    while($obj = $result->fetch_object()) {
-                                                       echo "$obj->comentario";
+                                                      echo "$obj->comentario";
                                                        if(isset($_SESSION["tipo"])){
                                                          if($_SESSION["id"]==$obj->idUsuario){
                                                            echo"<a href='borrarcom.php?id=$obj->idComentario'>
@@ -194,7 +198,7 @@ ob_start();
                                                    unset($obj);
                                                    unset($connection);
                                                  }
-
+                                               }
                                                    if (isset($_SESSION["tipo"])){
                                                      echo '<h2>AÑADIR COMENTARIO</h2>';
                                                      echo '<form name="comentario" id="comentar" novalidate method="post">';
@@ -245,7 +249,7 @@ ob_start();
                                                               echo'<button type="submit" class="btn btn-default" name="valorar">Valorar</button>';
                                                               echo '</div>';
                                                               echo '</div>';
-                                                      if (isset($_POST["val"])){
+                                                      if (isset($_POST["valorar"])){
                                                         $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                                                          if ($connection2->connect_errno) {
                                                            printf("Connection failed: %s\n", $connection2->connect_error);
@@ -262,7 +266,9 @@ ob_start();
                                                           header('Location:notcompleta.php'."?".$geturl);
                                                          }
                                                          }
-                                                        }
+                                                       }else{
+                                                         echo "<a href=sesion.php>Inicia sesión</a> para valorar y comentar";
+                                                       }
                             ?>
                 </div>
                 <hr>
