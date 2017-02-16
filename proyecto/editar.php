@@ -193,8 +193,10 @@
                echo "error";
             } else {
               echo "Datos cambiados";
-              session_destroy();
+              if (isset($_POST["nombreusu"]) && $_POST["nombreusu"]!=""){
+              $_SESSION["username"]=$_POST["nombreusu"];
               header("Refresh:2; url=index.php");
+            }
              }
           }else {
           echo "Esos datos están en uso";

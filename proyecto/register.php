@@ -161,7 +161,7 @@
         $userName = $_POST['nombreusu'];
         $password = $_POST['newpassword'];
         $email = $_POST['newemail'];
-        $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') ";
+        $cons="SELECT * FROM usuarios WHERE nombre_usuario = '$userName'  AND password = md5('$password') OR email='$email' " ;
         $result2 = $connection2->query($cons);
         if ($result2->num_rows==0) {
         $consulta= "INSERT INTO usuarios (idUsuario,tipo,password,email,nombre_usuario,fecha_registro)
