@@ -189,7 +189,7 @@ ob_start();
                                                        if(isset($_SESSION["tipo"])){
                                                          if($_SESSION["id"]==$obj->idUsuario){
                                                            echo"<a href='borrarcom.php?id=$obj->idComentario'>
-                                                           <button type='submit' class='btn btn-default' name='borrar'>Borrar comentario</button></a>";
+                                                           <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>";
                                                          }
                                                        }
                                                          echo'<b><p class="post-meta">Escrito por '.$obj->nombre_usuario.' el '.$obj->fCreacionC.'</b></p>';
