@@ -111,9 +111,9 @@
 
     <?php
 
-    //else{
+    //else
     echo'<div class="container">';
-        echo'<div class="rsow">';
+        echo'<div class="row">';
             echo'<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">';
                   echo'<div class="row control-group">';
                       echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
@@ -138,7 +138,7 @@
                                          echo"</thead>";
                                              while($obj = $result->fetch_object()) {
                                                  echo "<tr>";
-                                          //       echo "<td>".$obj->idUsuario."</td>";
+                                          //     echo "<td>".$obj->idUsuario."</td>";
                                                  echo "<td>".$obj->tipo."</td>";
                                                  echo "<td>".$obj->email."</td>";
                                                  echo "<td>".$obj->nombre_usuario."</td>";
@@ -166,10 +166,10 @@
 
         //else{
         echo'<div class="container">';
-            echo'<div class="rsow">';
+            echo'<div class="row">';
                 echo'<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">';
                       echo'<div class="row control-group">';
-                          echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
+                         echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
                               echo '<h2>NOTICIAS</h2>';
                               $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
@@ -178,8 +178,8 @@
                                   exit();
                               }
                                          $user=$_SESSION['username'];
-                                         if ($result = $connection->query("SELECT noticia.*,avg(valoraciones.nota) as media
-                                            FROM noticia right join valoraciones on noticia.idNoticia=valoraciones.idNoticia;")) {
+                                         if ($result = $connection->query("SELECT *
+                                            FROM noticia;")) {
                                              echo"<table style='border:1px solid black'>";
                                              echo"<thead>";
                                              echo"<tr>";
@@ -190,7 +190,6 @@
                                              echo"<th>Fecha Modificación </th>";
                                              echo "<th>Categoría</th>";
                                              echo "<th>Imagen</th>";
-                                             echo "<th>Media</th>";
                                              echo "<th>Borrar</th>";
                                              echo "<th>Editar</th>";
                                             echo"</thead>";
@@ -202,7 +201,6 @@
                                                      echo "<td>".$obj->fModificacion."</td>";
                                                      echo "<td>".$obj->idCategoria."</td>";
                                                      echo '<td><img src="'.$obj->image.'" width=40% /></td>';
-                                                     echo "<td>".$obj->media."</td>";
                                                      echo "<td>
                                                      <a href='borrarnot.php?id=$obj->idNoticia'>
                                                      <img src='borrar.jpg' width='30%';/>

@@ -43,11 +43,11 @@
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    Menu <i class="fa fa-bars"></i>
-                </button>
+              <div class="navbar-header page-scroll">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      Menu <i class="fa fa-bars"></i>
+                  </button>
                 <a class="navbar-brand" href="index.php">Noticias Gorgé</a>
             </div>
 
@@ -71,7 +71,7 @@
                     if (isset($_SESSION["username"])){
                     echo '<a href="logout.php">Hola '.$_SESSION['username'].'.Cerrar sesión.</a>';
                     } else {
-                    echo '<a href="sesion.php">Iniciar sesión</a>';
+                     echo '<a href="sesion.php">Iniciar sesión</a>';
                     }
                     ?>
                   </li>    
@@ -127,14 +127,34 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Categoría</label>
-                            <input type="number" class="form-control" name="categoria" placeholder="Categoría" id="categoria" >
-                            <p class="help-block text-danger"></p>
+                            <select class="form-control" name="categoria" placeholder="Categoría" id="cat">
+                              <?php
+                              $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+                              if ($connection->connect_errno) {
+                                  printf("Connection failed: %s\n", $connection->connect_error);
+                                  exit();
+                              }
+                                         if ($result = $connection->query("SELECT *
+                                            FROM categorias order by idCategoria;")) {
+                                                 while($obj = $result->fetch_object()) {
+                                                  echo "<option value='$obj->idCategoria'>$obj->valor</option>";
+                                                 }
+                                                 $result->close();
+                                                 unset($obj);
+                                                 unset($connection);
+                                               }
+                              ?>
+
+
+                            </select>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Cuerpo noticia</label>
                             <textarea rows="5" class="form-control" name="cuerpo" placeholder="Cuerpo noticia" id="cuerpo"></textarea>
+                                <p class="help-block text-danger"></p>
                                 <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -192,9 +212,8 @@
                      printf("Connection failed: %s\n", $connection->connect_error);
                        exit();
                      }
-
+                    $categoria=$_POST["categoria"];
                     $titular = $_POST['titular'];
-                    $categoria = $_POST['categoria'];
                     $cuerpo = nl2br($_POST['cuerpo']);
                     $id = $_SESSION["id"];
             $consulta="INSERT INTO noticia (idNoticia,titular,cuerpo,fCreacion,

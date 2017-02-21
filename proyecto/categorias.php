@@ -42,11 +42,11 @@
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    Menu <i class="fa fa-bars"></i>
-                </button>
+              <div class="navbar-header page-scroll">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      Menu <i class="fa fa-bars"></i>
+                  </button>
                 <a class="navbar-brand" href="index.php">Noticias Gorgé</a>
             </div>
 
@@ -115,29 +115,31 @@
     <div class="container">
         <div class="row">
           <div class="col-lg-1" >
-            <h2>
-              CATEGORÍAS
-            </h2>
-            <?php
-            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+            <div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle"
+          data-toggle="dropdown">
+    categorias <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" 'rol'=menu id="category">
+<?php
+$connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
-            if ($connection->connect_errno) {
-                printf("Connection failed: %s\n", $connection->connect_error);
-                exit();
-            }
-                       if ($result = $connection->query("SELECT *
-                          FROM categorias order by idCategoria;")) {
-
-                               while($obj = $result->fetch_object()) {
-                                echo'<div id="category">';
-                                echo "<a href='categorias.php?id=$obj->idCategoria'>$obj->valor</a>";
-                                echo'</div>';
-                               }
-                               $result->close();
-                               unset($obj);
-                               unset($connection);
-                             }
-              ?>
+if ($connection->connect_errno) {
+    printf("Connection failed: %s\n", $connection->connect_error);
+    exit();
+}
+           if ($result = $connection->query("SELECT *
+              FROM categorias order by idCategoria;")) {
+                   while($obj = $result->fetch_object()) {
+                    echo "<li><a href='categorias.php?id=$obj->idCategoria'>$obj->valor</a><li>";
+                   }
+                   $result->close();
+                   unset($obj);
+                   unset($connection);
+                 }
+?>
+</ul>
+          </div>
           </div>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
 

@@ -118,18 +118,20 @@
                           <p class="help-block text-danger"></p>
                   </div>
                 </div>-->
-                  <div class="row control-group">
-                      <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <select name="adtipousu" placeholder="tipo">
-                             <option>admin</option>
-                             <option>comun</option>
-                           </select><br/><br/>
-                           <p class="help-block text-danger"></p>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Tipo Usuario</label>
+                        <select class="form-control" name="adtipousu" placeholder="tipousu" id="anadetipousu">
+                          <option>admin</option>
+                          <option>comun</option>
+                        </select>
+                    </div>
+                </div>
+
                           <!--<label>Tipo</label>
                           <input type="text" name="adtipousu" class="form-control" placeholder="Tipo usuario" id="type" required>
                           <p class="help-block text-danger"></p>-->
-                      </div>
-                  </div>
+
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nombre usuario</label>
