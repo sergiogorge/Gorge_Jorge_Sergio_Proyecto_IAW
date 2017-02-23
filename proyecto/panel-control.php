@@ -58,12 +58,13 @@
         </div>
     </header>
 
-    <?php
-    echo'<div class="container">';
-        echo'<div class="row">';
-            echo'<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">';
-                  echo'<div class="row control-group">';
-                      echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <div class="row control-group">
+                      <div class="form-group col-xs-12 floating-label-form-group controls">
+                      <?php
                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                           if ($connection->connect_errno) {
                               printf("Connection failed: %s\n", $connection->connect_error);
@@ -97,12 +98,13 @@
                                              unset($connection);
                                            }
                       echo"</table>";
-                      echo '</div>';
-                    echo'</div>';
-                    echo'</div>';
-            echo'</div>';
-        echo'</div>';
-        ?>
+                      ?>
+                    </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+
         <footer>
             <div class="container">
                 <div class="row">

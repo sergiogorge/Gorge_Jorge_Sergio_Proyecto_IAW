@@ -64,31 +64,9 @@ ob_start();
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-          <div class="col-lg-1" >
-            <h2>
-              CATEGORÍAS
-            </h2>
-            <?php
-            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
-            if ($connection->connect_errno) {
-                printf("Connection failed: %s\n", $connection->connect_error);
-                exit();
-            }
-                       if ($result = $connection->query("SELECT *
-                          FROM categorias order by idCategoria;")) {
-
-                               while($obj = $result->fetch_object()) {
-                                echo'<div id="category">';
-                                echo "<a href='categorias.php?id=$obj->idCategoria'>$obj->valor</a>";
-                                echo'</div>';
-                               }
-                               $result->close();
-                               unset($obj);
-                               unset($connection);
-                             }
-              ?>
-            </div>
+          <?php
+          include_once("categoriaslist.php")
+           ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                           <?php
                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");

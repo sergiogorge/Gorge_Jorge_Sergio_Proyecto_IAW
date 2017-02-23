@@ -58,15 +58,14 @@
         </div>
     </header>
 
-    <?php
+    <div class="container">
+      <div class="row">
 
-    //else
-    echo'<div class="container">';
-        echo'<div class="row">';
-            echo'<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">';
-                  echo'<div class="row control-group">';
-                      echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
-                          echo '<h2>USUARIOS</h2>';
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                  <div class="row control-group">
+                      <div class="form-group col-xs-12 floating-label-form-group controls">
+                          <h2>USUARIOS</h2>
+                          <?php
                           $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                           if ($connection->connect_errno) {
                               printf("Connection failed: %s\n", $connection->connect_error);
@@ -103,23 +102,25 @@
                                              unset($connection);
                                            }
                                           echo"</table>";
-                      echo '</div>';
-                    echo'</div>';
-                    echo'</div>';
-            echo'</div>';
-        echo'</div>';
-        echo '</br>';
-  //    }
-        ?>
-        <?php
+                                          ?>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </br>
 
-        //else{
-        echo'<div class="container">';
-            echo'<div class="row">';
-                echo'<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">';
-                      echo'<div class="row control-group">';
-                         echo'<div class="form-group col-xs-12 floating-label-form-group controls">';
-                              echo '<h2>NOTICIAS</h2>';
+      <div class="container">
+        <div class="row">
+       </div>
+       </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                      <div class="row control-group">
+                         <div class="form-group col-xs-12 floating-label-form-group controls">
+                              <h2>NOTICIAS</h2>
+                              <?php
                               $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
 
                               if ($connection->connect_errno) {
@@ -165,14 +166,13 @@
                                                  unset($connection);
                                                }
                                               echo"</table>";
-                          echo '</div>';
-                        echo'</div>';
-                        echo'</div>';
-                echo'</div>';
-            echo'</div>';
-            echo '</br>';
-      //    }
-            ?>
+                                              ?>
+                          </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+            </br>
         <footer>
             <div class="container">
                 <div class="row">
