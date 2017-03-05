@@ -69,21 +69,70 @@
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo nombre usuario</label>
-                            <input type="text" name="nombreusu" class="form-control" placeholder="Nuevo nombre" id="name" required>
+                            <?php
+                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                        if ($result = $connection->query("SELECT nombre_usuario
+                                    FROM usuarios where idUsuario='$a';")) {
+                                    while($obj = $result->fetch_object()) {
+                                    echo'<input type="text" name="nombreusu" class="form-control" placeholder="Nombre usuario actual: '.$obj->nombre_usuario.'" id="name"  required>';
+                                    }
+                                    $result->close();
+                                    unset($obj);
+                                    unset($connection);
+                                  }
+                                  ?>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nuevo email</label>
-                            <input type="email" name="newemail" class="form-control" placeholder="Nuevo email" id="nemail" required>
+                            <?php
+                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                        if ($result = $connection->query("SELECT email
+                                    FROM usuarios where idUsuario='$a';")) {
+                                    while($obj = $result->fetch_object()) {
+                                    echo'<input type="email" name="newemail" class="form-control" placeholder="Email actual: '.$obj->email.'" id="nemail" required>';
+                                    }
+                                    $result->close();
+                                    unset($obj);
+                                    unset($connection);
+                                  }
+                                  ?>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="row control-group">
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Nueva contraseña</label>
-                            <input type="password" name="newpassword" class="form-control" placeholder="Nueva contraseña" id="npassword" required>
+                            <?php
+                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+                            if ($connection->connect_errno) {
+                                printf("Connection failed: %s\n", $connection->connect_error);
+                                exit();
+                            }
+                                        if ($result = $connection->query("SELECT password
+                                    FROM usuarios where idUsuario='$a';")) {
+                                    while($obj = $result->fetch_object()) {
+                                    echo'<input type="password" name="newpassword" class="form-control" placeholder="Nueva contraseña" id="npassword" required>';
+                                    }
+                                    $result->close();
+                                    unset($obj);
+                                    unset($connection);
+                                  }
+                                  ?>
+
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -107,12 +156,9 @@
     </div>
   <?php else: ?>
     <?php
-    //if (empty($_GET))
-    //die("Tienes que pasar algun parametro por GET.");
-    //$a = $_GET['id'];
        $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
         if ($connection2->connect_errno) {
-          printf("Connection failed: %s\n", $connection->connect_error);
+          printf("Connection failed: %s\n", $connection2->connect_error);
           exit();
           }
           $userName = $_POST['nombreusu'];
@@ -135,7 +181,6 @@
             $consulta= "UPDATE `usuarios` SET `password` = md5('$password')
              WHERE `usuarios`.`idUsuario` = '$a' ";
             $result = $connection2->query($consulta);
-
             }
             if (!$result) {
                echo "error";

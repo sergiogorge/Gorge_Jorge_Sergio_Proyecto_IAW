@@ -6,6 +6,7 @@
     session_destroy();
     header("Location:error.php");
   }
+  include("conexionbd.php");
 ?>
 <head>
 
@@ -65,11 +66,7 @@
                   <div class="row control-group">
                       <div class="form-group col-xs-12 floating-label-form-group controls">
                       <?php
-                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                          if ($connection->connect_errno) {
-                              printf("Connection failed: %s\n", $connection->connect_error);
-                              exit();
-                          }
+
                                      $user=$_SESSION['username'];
                                      if ($result = $connection->query("SELECT *
                                         FROM usuarios where nombre_usuario='$user';")) {
@@ -88,8 +85,8 @@
                                                  echo "<td>".$obj->fecha_registro."</td>";
                                                  echo "<td>
                                                  <a href='editar.php?id=$obj->idUsuario'>
-                                                 <img src='edit.jpg' width='30%';/>
-                                               </a></td>";
+                                                 <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
+                                                 </td>";
                                                  echo "</tr>";
                                                  echo "</tr>";
                                              }

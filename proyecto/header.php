@@ -14,13 +14,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
               <?php
-             if (!isset($_SESSION["tipo"])){
-              echo '<a href="index.php">Inicio</a>';
-             }else{
-             if (isset($_SESSION["tipo"])){
                echo '<a href="index.php">Inicio</a>';
-             }
-             }
              ?>
             </li>
 

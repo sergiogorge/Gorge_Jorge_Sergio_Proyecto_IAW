@@ -93,8 +93,8 @@ include_once("header.php");
                                                }
                               ?>
 
-
                             </select>
+                            <p><a href="anadircategoria.php">Añadir categoría</a></p>
                         </div>
                     </div>
                     <div class="row control-group">

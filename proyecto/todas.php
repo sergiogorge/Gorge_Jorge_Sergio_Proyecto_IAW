@@ -2,6 +2,8 @@
 <html lang="en">
 <?php
   session_start();
+  include("header.php");
+
 ?>
 <head>
 
@@ -34,9 +36,6 @@
 </head>
 <body>
 
-<?php
-  include_once("header.php");
- ?>
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
@@ -59,7 +58,7 @@
     <div class="container">
         <div class="row">
           <?php
-          include_once("categoriaslist.php")
+          include("categoriaslist.php")
            ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
 

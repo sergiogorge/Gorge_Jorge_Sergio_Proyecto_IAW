@@ -93,8 +93,8 @@
                                                  echo "<td>".$obj->fecha_registro."</td>";
                                                  echo "<td>
                                                  <a href='borrar.php?id=$obj->idUsuario'>
-                                                 <img src='borrar.jpg' width='30%';/>
-                                               </a></td>";
+                                                 <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                 </td>";
                                                  echo "</tr>";
                                              }
                                              $result->close();
@@ -122,19 +122,15 @@
                               <h2>NOTICIAS</h2>
                               <?php
                               $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-
                               if ($connection->connect_errno) {
                                   printf("Connection failed: %s\n", $connection->connect_error);
                                   exit();
                               }
-                                         $user=$_SESSION['username'];
-                                         if ($result = $connection->query("SELECT *
-                                            FROM noticia;")) {
+                                         if ($result = $connection->query("SELECT noticia.*,categorias.*
+                                            FROM noticia join categorias on noticia.idCategoria=categorias.idCategoria;")) {
                                              echo"<table style='border:1px solid black'>";
                                              echo"<thead>";
                                              echo"<tr>";
-                                             //echo"<th>ID </th>";
-                                             echo"<th>ID </th>";
                                              echo"<th>Titular </th>";
                                              echo"<th>Fecha Creación </th>";
                                              echo"<th>Fecha Modificación </th>";
@@ -142,23 +138,28 @@
                                              echo "<th>Imagen</th>";
                                              echo "<th>Borrar</th>";
                                              echo "<th>Editar</th>";
-                                            echo"</thead>";
+                                             echo "<th>Editar imagen</th>";
+                                             echo"</thead>";
                                                  while($obj = $result->fetch_object()) {
                                                      echo "<tr>";
-                                                     echo "<td>".$obj->idNoticia."</td>";
-                                                     echo "<td>".$obj->titular."</td>";
+                                                     echo "<td><a href='notcompleta.php?id=$obj->idNoticia'>".$obj->titular."</td>";
                                                      echo "<td>".$obj->fCreacion."</td>";
                                                      echo "<td>".$obj->fModificacion."</td>";
-                                                     echo "<td>".$obj->idCategoria."</td>";
+                                                     echo "<td>".$obj->valor."</td>";
                                                      echo '<td><img src="'.$obj->image.'" width=40% /></td>';
                                                      echo "<td>
                                                      <a href='borrarnot.php?id=$obj->idNoticia'>
-                                                     <img src='borrar.jpg' width='30%';/>
-                                                   </a></td>";
+                                                     <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                     </td>";
                                                    echo "<td>
-                                                   <a href='editar.php?id=$obj->idUsuario'>
-                                                   <img src='edit.jpg' width='30%';/>
-                                                 </a></td>";
+                                                   <a href='editarnot.php?id=$obj->idNoticia'>
+                                                   <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
+                                                   </td>";
+                                                   echo "<td>
+                                                   <a href='editarfoto.php?id=$obj->idNoticia'>
+                                                   <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
+                                                   </td>";
+
                                                      echo "</tr>";
                                                  }
                                                  $result->close();
@@ -173,6 +174,118 @@
                 </div>
             </div>
             </br>
+
+                  <div class="container">
+                    <div class="row">
+                   </div>
+                   </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                                  <div class="row control-group">
+                                     <div class="form-group col-xs-12 floating-label-form-group controls">
+                                          <h2>CATEGORIAS</h2>
+                                          <?php
+                                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                          if ($connection->connect_errno) {
+                                              printf("Connection failed: %s\n", $connection->connect_error);
+                                              exit();
+                                          }
+                                                     $user=$_SESSION['username'];
+                                                     if ($result = $connection->query("SELECT* FROM
+                                                       categorias;")) {
+                                                         echo"<table style='border:1px solid black'>";
+                                                         echo"<thead>";
+                                                         echo"<tr>";
+                                                         echo "<th>Categoría</th>";
+                                                         echo "<th>Borrar</th>";
+                                                        echo"</thead>";
+                                                             while($obj = $result->fetch_object()) {
+                                                                 echo "<tr>";
+                                                                 echo "<td>".$obj->valor."</td>";
+                                                                 echo "<td>
+                                                                 <a href='borrarcat.php?id=$obj->idCategoria'>
+                                                                 <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                                 </td>";
+                                                                 echo "</tr>";
+                                                             }
+                                                             $result->close();
+                                                             unset($obj);
+                                                             unset($connection);
+                                                           }
+                                                          echo"</table>";
+                                                          ?>
+                                      </div>
+                                    </div>
+                                    </div>
+                            </div>
+                        </div>
+                        </br>
+
+                              <div class="container">
+                                <div class="row">
+                               </div>
+                               </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                                              <div class="row control-group">
+                                                 <div class="form-group col-xs-12 floating-label-form-group controls">
+                                                      <h2>VALORACIONES</h2>
+                                                      <?php
+                                                      $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                      if ($connection->connect_errno) {
+                                                          printf("Connection failed: %s\n", $connection->connect_error);
+                                                          exit();
+                                                      }
+
+                                                                 if ($result = $connection->query("SELECT valoraciones.idValoracion,
+                                                                   valoraciones.nota as valoracion,valoraciones.fValoracion, noticia.titular,usuarios.nombre_usuario
+                                                                    FROM valoraciones join noticia on valoraciones.idNoticia=noticia.idNoticia join usuarios on
+                                                                    valoraciones.idUsuario=usuarios.idUsuario order by fValoracion;")) {
+                                                                      if ($result->num_rows==0) {
+                                                                       echo"No hay valoraciones";
+                                                                     }else{
+                                                                      while($obj = $result->fetch_object()) {
+                                                                     echo"<table style='border:1px solid black'>";
+                                                                     echo"<thead>";
+                                                                     echo"<tr>";
+                                                                     echo"<th>Noticia </th>";
+                                                                     echo"<th>Valoracion</th>";
+                                                                     echo"<th>Usuario</th>";
+                                                                    echo"<th>Fecha Valoracion</th>";
+                                                                    echo"<th>Borrar Valoracion</th>";
+                                                                    echo"</thead>";
+                                                                             echo "<tr>";
+                                                                             echo "<td>".$obj->titular."</td>";
+                                                                             echo "<td>".$obj->valoracion."</td>";
+                                                                             echo "<td>".$obj->nombre_usuario."</td>";
+                                                                             echo "<td>".$obj->fValoracion."</td>";
+                                                                             echo "<td>
+                                                                             <a href='borrarval2.php?id=$obj->idValoracion'>
+                                                                             <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                                             </td>";
+                                                                             echo "</tr>";
+                                                                             echo"</table>";
+                                                        /*          echo"<p>Resetear valoraciones<a href='borrarval.php?id=$obj->idValoracion'>
+                                                                                   <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a></p>";*/
+
+                                                                         }
+                                                                       }
+                                                                         $result->close();
+                                                                         unset($obj);
+                                                                         unset($connection);
+
+                                                                       }
+
+                                                                      ?>
+                                                  </div>
+                                                </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    </br>
+
         <footer>
             <div class="container">
                 <div class="row">

@@ -124,6 +124,35 @@ ob_start();
                                                    unset($connection);
                                                  }
                                                }
+                                               echo "<h2>NOTA MEDIA</h2>";
+                                               $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                               if ($connection->connect_errno) {
+                                                   printf("Connection failed: %s\n", $connection->connect_error);
+                                                   exit();
+                                               }
+
+                                                          if ($result = $connection->query("SELECT avg(nota) as medianota, idNoticia
+                                                          from valoraciones where idNoticia='$a' ;")) {
+                                                               while($obj = $result->fetch_object()) {
+                                                                 if ($obj->medianota=="") {
+                                                                  echo"No hay valoraciones";
+                                                                }else{
+                                                                 echo"La nota media de esta noticia es: $obj->medianota";
+                                                                 echo "<br>";
+                                                                  }
+                                                                  if (isset($_SESSION["tipo"])){
+                                                                  if ($_SESSION["tipo"]=='admin'){
+                                                                    echo"<p>Resetear valoraciones<a href='borrarval.php?id=$obj->idNoticia'>
+                                                                    <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a></p>";
+
+                                                                 }
+                                                               }
+                   }
+                                                                  $result->close();
+                                                                  unset($obj);
+                                                                  unset($connection);
+
+                                                                }
                                                    if (isset($_SESSION["tipo"])){
                                                      echo '<h2>AÑADIR COMENTARIO</h2>';
                                                      echo '<form name="comentario" id="comentar" novalidate method="post">';
@@ -137,8 +166,8 @@ ob_start();
                                                      echo'</div>';
                                                      echo'<button type="submit" class="btn btn-default" name="comentar">Enviar comentario</button>';
                                                      if (isset($_POST["comentar"])){
-                                                       $connection3 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                        if ($connection3->connect_errno) {
+                                                       $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                        if ($connection->connect_errno) {
                                                           printf("Connection failed: %s\n", $connection3->connect_error);
                                                           exit();
                                                           }
@@ -146,7 +175,7 @@ ob_start();
                                                        $user=$_SESSION["id"];
                                                        $consulta= "INSERT INTO comentarios (idComentario,idNoticia,idUsuario,comentario,fCreacionC)
                                                        VALUES (NULL,'$a','$user','$com',sysdate())";
-                                                       $result = $connection3->query($consulta);
+                                                       $result = $connection->query($consulta);
                                                        if (!$result) {
                                                           echo "error";
                                                        } else {
@@ -175,16 +204,16 @@ ob_start();
                                                               echo '</div>';
                                                               echo '</div>';
                                                       if (isset($_POST["valorar"])){
-                                                        $connection2 = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
-                                                         if ($connection2->connect_errno) {
-                                                           printf("Connection failed: %s\n", $connection2->connect_error);
+                                                        $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                         if ($connection->connect_errno) {
+                                                           printf("Connection failed: %s\n", $connection->connect_error);
                                                            exit();
                                                            }
                                                         $val= $_POST["val"];
                                                         $user=$_SESSION["id"];
-                                                        $cons= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota)
-                                                        VALUES (NULL,'$a','$user','$val')";
-                                                        $result2= $connection2->query($cons);
+                                                        $cons= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota,fValoracion)
+                                                        VALUES (NULL,'$a','$user','$val',sysdate())";
+                                                        $result= $connection->query($cons);
                                                         if (!$result) {
                                                            echo "error";
                                                         } else {
@@ -193,8 +222,10 @@ ob_start();
                                                          }
                                                        }else{
                                                          echo "<a href=sesion.php>Inicia sesión</a> para valorar y comentar";
+                                                         echo "<br>";
                                                        }
                             ?>
+
                 </div>
                 <hr>
         </div>
