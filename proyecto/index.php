@@ -2,7 +2,6 @@
 <html lang="en">
 <?php
   session_start();
-  include_once("conexionbd.php");
 ?>
 <head>
 
@@ -59,37 +58,20 @@
     <!-- Main Content -->
     <div class="container">
         <div class="row">
-
-          <div class="col-lg-1">
-            <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle"
-          data-toggle="dropdown">
-          categorias <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" rol=menu id="category">
           <?php
-           if ($result = $connection->query("SELECT *
-              FROM categorias order by idCategoria;")) {
-                   while($obj = $result->fetch_object()) {
-                    echo "<li><a href='categorias.php?id=$obj->idCategoria'>$obj->valor</a><li>";
-                   }
-                   $result->close();
-                   unset($obj);
-                   unset($connection);
-                 }
-          ?>
-          </ul>
-          </div>
-          </div>
-
+          include("categoriaslist.php");
+           ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 
                           <?php
-                                     include("conexionbd.php");
-                                     if ($result = $connection->query("SELECT *
-                                        FROM noticia join usuarios on noticia.idUsuario
-                                        =usuarios.idusuario order by idNoticia DESC limit 3  ;")) {
+                          $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                          if ($connection->connect_errno) {
+                              printf("Connection failed: %s\n", $connection->connect_error);
+                              exit();
+                          }                                     if ($result = $connection->query("SELECT *
+                                        FROM noticia join usuarios on noticia.idusuario
+                                        =usuarios.idusuario order by idnoticia DESC limit 3  ;")) {
 
                                              while($obj = $result->fetch_object()) {
                                                  echo "<div class='post-preview'>";

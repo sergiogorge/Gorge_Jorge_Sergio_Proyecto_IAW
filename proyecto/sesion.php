@@ -122,10 +122,10 @@ if ($result = $connection->query($consulta)) {
   //  var_dump($_SESSION);
   //echo "<br><br><a href=index.php>Ir al inicio</a>";
    if ( $obj->tipo == 'admin') {
-header("Location:paneladmin.php");
+header("Location:admin/paneladmin.php");
 echo "<br>";
 }elseif ($obj->tipo == 'comun') {
-header("Location:panel-control.php");
+header("Location:comun/panel-control.php");
 echo "<br>";
   }
 

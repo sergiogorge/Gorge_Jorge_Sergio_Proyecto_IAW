@@ -65,7 +65,7 @@ ob_start();
     <div class="container">
         <div class="row">
           <?php
-          include_once("categoriaslist.php")
+          include("categoriaslist.php");
            ?>
             <div class="col-lg-9 col-lg-offset-2 col-md-10 col-md-offset-1">
                           <?php
@@ -76,25 +76,26 @@ ob_start();
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia  join usuarios on noticia.idUsuario
-                                        =usuarios.idusuario where idNoticia='$a';")) {
+                                        FROM noticia  join usuarios on noticia.idusuario
+                                        =usuarios.idusuario where idnoticia='$a';")) {
                                              while($obj = $result->fetch_object()) {
                                                echo "<div class='post-preview'>";
                                                  echo "<h2 class='post-title'>";
                                                  echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
                                                 echo "</h2>";
-                                                 echo "<img src=$obj->image width=40% />";
+                                                 echo "<img src=admin/$obj->image width=40% />";
                                                  echo "</div>";
-                                                 echo "<p class='text-justify'>'$obj->cuerpo'</p>";
                                                  if($obj->fModificacion!=NULL) {
                                                    echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</b></p>';
+                                                   echo "<p class='text-justify'>$obj->cuerpo</p>";
                                                  }else{
                                                    echo'<b><p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</b></p>';
+                                                   echo "<p class='text-justify'>$obj->cuerpo</p>";
+
                                                  }
                                                }
                                              $result->close();
                                              unset($obj);
-                                             unset($connection);
                                            }
                                            echo "<h2>COMENTARIOS</h2>";
                                            $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
@@ -103,8 +104,8 @@ ob_start();
                                                exit();
                                            }
                                            if ($result = $connection->query("SELECT *
-                                              FROM comentarios join noticia on comentarios.idNoticia
-                                              =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idUsuario where noticia.idNoticia='$a' order by idComentario DESC;")) {
+                                              FROM comentarios join noticia on comentarios.idnoticia
+                                              =noticia.idNoticia join usuarios on comentarios.idUsuario=usuarios.idusuario where noticia.idnoticia='$a' order by idcomentario DESC;")) {
                                                   if ($result->num_rows==0) {
                                                     echo "No hay comenarios";
                                                     echo "<br>";
@@ -112,8 +113,8 @@ ob_start();
                                                    while($obj = $result->fetch_object()) {
                                                       echo "$obj->comentario";
                                                        if(isset($_SESSION["tipo"])){
-                                                         if($_SESSION["id"]==$obj->idUsuario){
-                                                           echo"<a href='borrarcom.php?id=$obj->idComentario'>
+                                                         if($_SESSION["id"]==$obj->idUsuario || $_SESSION["tipo"]=='admin'){
+                                                           echo"<a href='borrar/borrarcom.php?id=$obj->idComentario'>
                                                            <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>";
                                                          }
                                                        }
@@ -121,18 +122,17 @@ ob_start();
                                                       }
                                                    $result->close();
                                                    unset($obj);
-                                                   unset($connection);
                                                  }
                                                }
                                                echo "<h2>NOTA MEDIA</h2>";
-                                               $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+                                                $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                                                if ($connection->connect_errno) {
                                                    printf("Connection failed: %s\n", $connection->connect_error);
                                                    exit();
-                                               }
+                                             }
 
-                                                          if ($result = $connection->query("SELECT avg(nota) as medianota, idNoticia
-                                                          from valoraciones where idNoticia='$a' ;")) {
+                                                          if ($result = $connection->query("SELECT avg(nota) as medianota, idnoticia
+                                                          from valoraciones where idnoticia='$a' ;")) {
                                                                while($obj = $result->fetch_object()) {
                                                                  if ($obj->medianota=="") {
                                                                   echo"No hay valoraciones";
@@ -142,15 +142,15 @@ ob_start();
                                                                   }
                                                                   if (isset($_SESSION["tipo"])){
                                                                   if ($_SESSION["tipo"]=='admin'){
-                                                                    echo"<p>Resetear valoraciones<a href='borrarval.php?id=$obj->idNoticia'>
+                                                                    echo"<p>Resetear valoraciones<a href='admin/borrar/borrarval.php?id=$obj->idnoticia'>
                                                                     <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a></p>";
+                                                                 }else{
 
                                                                  }
                                                                }
                    }
                                                                   $result->close();
                                                                   unset($obj);
-                                                                  unset($connection);
 
                                                                 }
                                                    if (isset($_SESSION["tipo"])){
@@ -168,12 +168,12 @@ ob_start();
                                                      if (isset($_POST["comentar"])){
                                                        $connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
                                                         if ($connection->connect_errno) {
-                                                          printf("Connection failed: %s\n", $connection3->connect_error);
+                                                          printf("Connection failed: %s\n", $connection->connect_error);
                                                           exit();
                                                           }
                                                        $com= nl2br($_POST["com"]);
                                                        $user=$_SESSION["id"];
-                                                       $consulta= "INSERT INTO comentarios (idComentario,idNoticia,idUsuario,comentario,fCreacionC)
+                                                       $consulta= "INSERT INTO comentarios (idcomentario,idnoticia,idusuario,comentario,fcreacionc)
                                                        VALUES (NULL,'$a','$user','$com',sysdate())";
                                                        $result = $connection->query($consulta);
                                                        if (!$result) {
@@ -211,7 +211,7 @@ ob_start();
                                                            }
                                                         $val= $_POST["val"];
                                                         $user=$_SESSION["id"];
-                                                        $cons= "INSERT INTO valoraciones (idValoracion,idNoticia,idUsuario,nota,fValoracion)
+                                                        $cons= "INSERT INTO valoraciones (idvaloracion,idnoticia,idusuario,nota,fvaloracion)
                                                         VALUES (NULL,'$a','$user','$val',sysdate())";
                                                         $result= $connection->query($cons);
                                                         if (!$result) {
@@ -224,6 +224,8 @@ ob_start();
                                                          echo "<a href=sesion.php>Inicia sesión</a> para valorar y comentar";
                                                          echo "<br>";
                                                        }
+                                                       unset($connection);
+
                             ?>
 
                 </div>

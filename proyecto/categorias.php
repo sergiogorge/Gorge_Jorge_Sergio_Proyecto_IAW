@@ -77,25 +77,29 @@
                               exit();
                           }
                                      if ($result = $connection->query("SELECT *
-                                        FROM noticia join usuarios on noticia.idUsuario
-                                        =usuarios.idusuario where idCategoria='$a' order by idNoticia DESC ;" )) {
-
+                                        FROM noticia join usuarios on noticia.idusuario
+                                        =usuarios.idusuario where idcategoria='$a' order by idnoticia DESC ;" )) {
+                                            if ($result->num_rows==0) {
+                                              echo "No hay noticias en esta categoría";
+                                            }else{
                                              while($obj = $result->fetch_object()) {
                                                  echo "<div class='post-preview'>";
                                                  echo "<h2 class='post-title'>";
                                                  echo "<a href='notcompleta.php?id=$obj->idNoticia'>$obj->titular</a>";
                                                  echo "</h2>";
-                                                 echo "<img src=$obj->image width=40% />";
+                                                 echo "<img src=admin/$obj->image width=40% />";
                                                  echo "</div>";
                                                  if ($obj->fModificacion!=NULL) {
                                                    echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. el '.$obj->fModificacion.'</p>';
                                                  }else{
                                                    echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</p>';
-                                                 }                                             }
+                                                 }
+                                                   }
                                              $result->close();
                                              unset($obj);
                                              unset($connection);
                                            }
+                                         }
                             ?>
                         </h2>
 

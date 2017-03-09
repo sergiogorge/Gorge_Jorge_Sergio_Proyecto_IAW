@@ -7,9 +7,13 @@ categorias <span class="caret"></span>
 </button>
 <ul class="dropdown-menu" rol=menu id="category">
 <?php
-include("conexionbd.php");
- if ($result = $connection->query("SELECT *
-    FROM categorias order by idCategoria;")) {
+$connection = new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
+
+if ($connection->connect_errno) {
+    printf("Connection failed: %s\n", $connection->connect_error);
+    exit();
+} if ($result = $connection->query("SELECT *
+    FROM categorias order by idcategoria;")) {
          while($obj = $result->fetch_object()) {
           echo "<li><a href='categorias.php?id=$obj->idCategoria'>$obj->valor</a><li>";
          }
