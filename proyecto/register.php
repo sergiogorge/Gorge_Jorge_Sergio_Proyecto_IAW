@@ -2,6 +2,10 @@
 <html lang="en">
 <?php
   session_start();
+    if (isset($_SESSION["tipo"])){
+    header("Location:error2.php");
+  }
+
 ?>
 <head>
 
