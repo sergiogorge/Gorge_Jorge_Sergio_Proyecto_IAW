@@ -11,9 +11,8 @@
                               </span>
                           </a>
                       </li>
-                  </ul>
-                  <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
-            </div>
+                </ul>
+           </div>
         </div>
     </div>
   </footer>
