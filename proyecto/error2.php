@@ -52,27 +52,10 @@
     </header>
 
 
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                        <ul class="list-inline text-center">
-                            <li>
-                                <a href="http://www.twitter.com/sergiogorge">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                        <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
 
-                    </div>
-                </div>
-            </div>
-
-        </footer>
+        <?php
+        include("footer.php");
+         ?>
 
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -83,8 +66,6 @@
     <!-- Theme JavaScript -->
     <script src="js/clean-blog.min.js"></script>
 
-    <!--Check password -->
-    <script src="js/checkpass.js"></script>
 </body>
 
 </html>

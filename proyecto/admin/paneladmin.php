@@ -74,7 +74,10 @@
                                      $user=$_SESSION['username'];
                                      if ($result = $connection->query("SELECT *
                                         FROM usuarios;")) {
-                                         echo"<table style='border:1px solid black'>";
+                                          if($result->num_rows==0){
+                                            echo "No hay usuarios";
+                                          }else{
+                                         echo"<table style='border:1px solid black' class='table'>";
                                          echo"<thead>";
                                          echo"<tr>";
                                          //echo"<th>ID </th>";
@@ -102,11 +105,12 @@
                                                  </td>";
                                                  echo "</tr>";
                                              }
+                                             echo"</table>";
+                                           }
                                              $result->close();
                                              unset($obj);
                                              unset($connection);
                                            }
-                                          echo"</table>";
                                           ?>
                 </div>
                 </div>
@@ -133,51 +137,56 @@
                               }
                                          if ($result = $connection->query("SELECT noticia.*,categorias.*
                                             FROM noticia join categorias on noticia.idcategoria=categorias.idcategoria;")) {
-                                             echo"<table style='border:1px solid black'>";
-                                             echo"<thead>";
-                                             echo"<tr>";
-                                             echo"<th>Titular </th>";
-                                             echo"<th>Fecha Creación </th>";
-                                             echo"<th>Fecha Modificación </th>";
-                                             echo "<th>Categoría</th>";
-                                             echo "<th>Imagen</th>";
-                                             echo "<th>Borrar</th>";
-                                             echo "<th>Editar</th>";
-                                             echo "<th>Editar imagen</th>";
-                                             echo"</thead>";
-                                                 while($obj = $result->fetch_object()) {
-                                                     echo "<tr>";
-                                                     echo "<td><a href='../notcompleta.php?id=$obj->idNoticia'>".$obj->titular."</td>";
-                                                     echo "<td>".$obj->fCreacion."</td>";
-                                                     echo "<td>".$obj->fModificacion."</td>";
-                                                     echo "<td>".$obj->valor."</td>";
-                                                     echo '<td><img src="'.$obj->image.'" width=40% /></td>';
-                                                     echo "<td>
-                                                     <a href='borrar/borrarnot.php?id=$obj->idNoticia'>
-                                                     <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
-                                                     </td>";
-                                                   echo "<td>
-                                                   <a href='editarnot.php?id=$obj->idNoticia'>
-                                                   <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
-                                                   </td>";
-                                                   echo "<td>
-                                                   <a href='editarfoto.php?id=$obj->idNoticia'>
-                                                   <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
-                                                   </td>";
+                                              if($result->num_rows==0){
+                                                    echo "No hay noticias. <a href=anadirnoticia.php>Añadir una</a> ";
+                                                    }else{
+                                                    echo"<table style='border:1px solid black' class='table'>";
+                                                    echo"<thead>";
+                                                    echo"<tr>";
+                                                    echo"<th>Titular </th>";
+                                                    echo"<th>Fecha Creación </th>";
+                                                    echo"<th>Fecha Modificación </th>";
+                                                    echo "<th>Categoría</th>";
+                                                    echo "<th>Imagen</th>";
+                                                    echo "<th>Borrar</th>";
+                                                    echo "<th>Editar</th>";
+                                                    echo "<th>Editar imagen</th>";
+                                                    echo"</thead>";
+                                                        while($obj = $result->fetch_object()) {
+                                                            echo "<tr>";
+                                                            echo "<td><a href='../notcompleta.php?id=$obj->idNoticia'>".$obj->titular."</td>";
+                                                            echo "<td>".$obj->fCreacion."</td>";
+                                                            echo "<td>".$obj->fModificacion."</td>";
+                                                            echo "<td>".$obj->valor."</td>";
+                                                            echo '<td><img src="'.$obj->image.'" width=40% /></td>';
+                                                            echo "<td>
+                                                            <a href='borrar/borrarnot.php?id=$obj->idNoticia'>
+                                                            <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                            </td>";
+                                                          echo "<td>
+                                                          <a href='editarnot.php?id=$obj->idNoticia'>
+                                                          <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
+                                                          </td>";
+                                                          echo "<td>
+                                                          <a href='editarfoto.php?id=$obj->idNoticia'>
+                                                          <i type='submit' class='glyphicon glyphicon-pencil' name='borrar'></i></a>
+                                                          </td>";
+                                                            echo "</tr>";
+                                                        }
+                                                         echo"</table>";
+                                                        }
+                                                        $result->close();
+                                                        unset($obj);
+                                                        unset($connection);
 
-                                                     echo "</tr>";
-                                                 }
-                                                 $result->close();
-                                                 unset($obj);
-                                                 unset($connection);
-                                               }
-                                              echo"</table>";
-                                              ?>
-                          </div>
-                        </div>
-                        </div>
-                </div>
-            </div>
+                                                      }
+                                                     ?>
+                                 </div>
+                               </div>
+                               </div>
+                       </div>
+                   </div>
+
             </br>
 
                   <div class="container">
@@ -196,35 +205,46 @@
                                               printf("Connection failed: %s\n", $connection->connect_error);
                                               exit();
                                           }
-                                                     $user=$_SESSION['username'];
-                                                     if ($result = $connection->query("SELECT * FROM
-                                                       categorias;")) {
-                                                         echo"<table style='border:1px solid black'>";
-                                                         echo"<thead>";
-                                                         echo"<tr>";
-                                                         echo "<th>Categoría</th>";
-                                                         echo "<th>Borrar</th>";
-                                                        echo"</thead>";
-                                                             while($obj = $result->fetch_object()) {
-                                                                 echo "<tr>";
-                                                                 echo "<td>".$obj->valor."</td>";
-                                                                 echo "<td>
-                                                                 <a href='borrar/borrarcat.php?id=$obj->idCategoria'>
-                                                                 <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
-                                                                 </td>";
-                                                                 echo "</tr>";
-                                                             }
-                                                             $result->close();
-                                                             unset($obj);
-                                                             unset($connection);
-                                                           }
-                                                          echo"</table>";
-                                                          ?>
-                                      </div>
-                                    </div>
-                                    </div>
-                            </div>
-                        </div>
+                                          $user=$_SESSION['username'];
+                                                if ($result = $connection->query("SELECT * FROM
+                                                  categorias;")) {
+                                                    if($result->num_rows==0){
+                                                     echo "No hay categorías. <a href=anadircategoria2.php>Añadir una</a> ";
+                                                     }else{
+                                                    echo"<table style='border:1px solid black' class='table''>";
+                                                    echo"<thead>";
+                                                    echo"<tr>";
+                                                    echo "<th>Categoría</th>";
+                                                    echo"<th>Insertar</th>";
+                                                    echo "<th>Borrar</th>";
+                                                   echo"</thead>";
+                                                        while($obj = $result->fetch_object()) {
+                                                            echo "<tr>";
+                                                            echo "<td>".$obj->valor."</td>";
+                                                            echo "<td>
+                                                            <a href='anadircategoria2.php'>
+                                                            <i type='submit' class='glyphicon glyphicon-plus' name='borrar'></i></a>
+                                                            </td>";
+                                                            echo "<td>
+                                                            <a href='borrar/borrarcat.php?id=$obj->idCategoria'>
+                                                            <i type='submit' class='glyphicon glyphicon-trash' name='borrar'></i></a>
+                                                            </td>";
+                                                            echo "</tr>";
+                                                        }
+                                                            echo"</table>";
+
+                                                        }
+                                                        $result->close();
+                                                        unset($obj);
+                                                        unset($connection);
+                                                      }
+
+                                                     ?>
+                                 </div>
+                               </div>
+                               </div>
+                       </div>
+                   </div>
                         </br>
 
                               <div class="container">
@@ -291,43 +311,9 @@
                                         </div>
                                     </br>
 
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                        <ul class="list-inline text-center">
-                          <li>
-                            <a href="registeradmin.php">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-child fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                                </li>
-                            <li>
-                                <a href="http://www.twitter.com/sergiogorge">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                              <a href="anadirnoticia.php">
-                                  <span class="fa-stack fa-lg">
-                                      <i class="fa fa-circle fa-stack-2x"></i>
-                                      <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-                                  </span>
-                                </a>
-                                          </li>
-                        </ul>
-                        <p class="copyright text-muted">Copyright &copy; Gorgé 2016</p>
-
-                    </div>
-                </div>
-            </div>
-
-        </footer>
+<?php
+  include("footeradmin.php");
+ ?>
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -338,8 +324,6 @@
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
-    <!--Check password -->
-    <script src="../js/checkpass.js"></script>
 </body>
 
 </html>
