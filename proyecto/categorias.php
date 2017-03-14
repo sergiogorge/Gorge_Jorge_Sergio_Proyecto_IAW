@@ -90,7 +90,7 @@
                                                  echo "<img src=admin/$obj->image width=40% />";
                                                  echo "</div>";
                                                  if ($obj->fModificacion!=NULL) {
-                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. el '.$obj->fModificacion.'</p>';
+                                                   echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'. Modificada el '.$obj->fModificacion.'</p>';
                                                  }else{
                                                    echo'<p class="post-meta">Escrita por '.$obj->nombre_usuario.' el '.$obj->fCreacion.'</p>';
                                                  }
