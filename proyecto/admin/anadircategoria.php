@@ -104,7 +104,7 @@ if ($result2->num_rows==0) {
             } else {
 
               echo "<br/><br/><br/><h2>Categoría añandida correctamente en el sistema</h2>";
-              header("Refresh:1; url=../anadirnoticia.php");
+              header("Refresh:1; url=anadirnoticia.php");
               echo "<br/><br/>";
               //echo "<a href='../'><h4 id='homeHeading'>Volver al panel</h4></a>";
               echo "<br/><br/>";
@@ -128,9 +128,7 @@ if ($result2->num_rows==0) {
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src="../js/jqBootstrapValidation.js"></script>
-
+  
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 
