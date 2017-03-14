@@ -142,7 +142,6 @@ if ($_SESSION["tipo"]!=='admin'){
          echo "Query Error";
          var_dump($consulta);
       } else {
-        echo "$imagen";
         echo "<br/><br/><br/><h2>La foto de la noticia se actualizó correctamente</h2>";
         header("Refresh:1; url=paneladmin.php");
         echo "<br/><br/>";

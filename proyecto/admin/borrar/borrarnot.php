@@ -14,7 +14,11 @@ $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
    exit();
    }
 
+<<<<<<< HEAD
 if ($result2 = $connection->query("SELECT noticia.* FROM noticia where idnoticia=$a;")) {
+=======
+if ($result2 = $connection->query("SELECT noticia.* FROM noticia where idnoticia=$a";")) {
+>>>>>>> 3dfd84384bc1fb7042e94490fb51fc81087e7352
            $obj = $result2->fetch_object();
            //var_dump($obj);
            $imagen="../$obj->image";

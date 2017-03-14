@@ -128,6 +128,10 @@ if ($result2->num_rows==0) {
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 3dfd84384bc1fb7042e94490fb51fc81087e7352
     <!-- Theme JavaScript -->
     <script src="../js/clean-blog.min.js"></script>
 

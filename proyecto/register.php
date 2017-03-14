@@ -2,9 +2,15 @@
 <html lang="en">
 <?php
   session_start();
+<<<<<<< HEAD
   if (isset($_SESSION["tipo"])){
   header("Location:error2.php");
 }
+=======
+    if (isset($_SESSION["tipo"])){
+    header("Location:error2.php");
+  }
+>>>>>>> 3dfd84384bc1fb7042e94490fb51fc81087e7352
 
 ?>
 <head>
