@@ -1,7 +1,7 @@
 <?php
 if ($_SESSION["tipo"]!=='admin'){
   session_destroy();
-  header("Location:..//error.php");
+  header("Location:../error.php");
 }
 session_start();
 if (empty($_GET))
