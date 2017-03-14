@@ -1,5 +1,9 @@
 <?php
 session_start();
+if ($_SESSION["tipo"]!=='admin'){
+   session_destroy();
+    header("Location:../error.php");
+  }
 if (empty($_GET))
 die("Tienes que pasar algun parametro por GET.");
 $a = $_GET['id'];
@@ -10,7 +14,7 @@ $connection= new mysqli("localhost", "root", "2asirtriana", "proyecto_blog2");
    exit();
    }
 
-if ($result2 = $connection->query("SELECT noticia.* FROM noticia;")) {
+if ($result2 = $connection->query("SELECT noticia.* FROM noticia where idnoticia=$a;")) {
            $obj = $result2->fetch_object();
            //var_dump($obj);
            $imagen="../$obj->image";

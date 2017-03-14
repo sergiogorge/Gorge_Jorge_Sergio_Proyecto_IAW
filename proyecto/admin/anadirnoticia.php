@@ -172,7 +172,7 @@ include_once("header.php");
             } else {
 
               echo "<br/><br/><br/><h2>Tus datos han añadido correctamente en el sistema</h2>";
-              //header("Refresh:1; url=paneladmin.php");
+              header("Refresh:1; url=paneladmin.php");
               echo "<br/><br/>";
               //echo "<a href='../'><h4 id='homeHeading'>Volver al panel</h4></a>";
               echo "<br/><br/>";
@@ -185,7 +185,7 @@ include_once("header.php");
 
           <?php endif ?>
 <hr>
-  <?php 
+  <?php
   include("footer.php");
    ?>
 

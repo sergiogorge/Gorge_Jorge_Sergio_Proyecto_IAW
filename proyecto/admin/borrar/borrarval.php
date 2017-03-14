@@ -1,5 +1,9 @@
 <?php
 session_start();
+if ($_SESSION["tipo"]!=='admin'){
+   session_destroy();
+    header("Location:../error.php");
+  }
 if (empty($_GET))
 die("Tienes que pasar algun parametro por GET.");
 $a = $_GET['id'];

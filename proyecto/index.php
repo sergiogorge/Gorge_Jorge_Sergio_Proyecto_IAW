@@ -102,10 +102,9 @@
             </div>
         </div>
     </div>
-
-        <?php
+      <?php
         include("footer.php");
-         ?>
+       ?>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
