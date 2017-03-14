@@ -135,7 +135,8 @@ ob_start();
                                                           from valoraciones where idnoticia='$a' ;")) {
                                                                while($obj = $result->fetch_object()) {
                                                                  if ($obj->medianota=="") {
-                                                                  echo"No hay valoraciones";
+                                                                  echo"No hay valoraciones
+                                                                  echo"<br>";                                                      
                                                                 }else{
                                                                  echo"La nota media de esta noticia es: $obj->medianota";
                                                                  echo "<br>";
